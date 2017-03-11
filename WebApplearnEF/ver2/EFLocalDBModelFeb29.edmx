@@ -1,0 +1,287 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="mylearnthinksavedbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AudioURLTrascribedStringTAB">
+          <Key>
+            <PropertyRef Name="AudioId" />
+          </Key>
+          <Property Name="AudioId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AudioURL" Type="nvarchar" MaxLength="50" />
+          <Property Name="TranscribedText" Type="nvarchar(max)" />
+          <Property Name="lang" Type="tinyint" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'mylearnthinksavedb.dbo.ListofQuestionPapersTAB' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ListofQuestionPapersTAB">
+          <Key>
+            <PropertyRef Name="QuestionPaperNO" />
+          </Key>
+          <Property Name="QuestionPaperNO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ListofQuestions" Type="nvarchar" MaxLength="500" />
+          <Property Name="ClassStd" Type="int" />
+          <Property Name="Board" Type="nvarchar" MaxLength="10" />
+          <Property Name="Subject" Type="nvarchar" MaxLength="10" />
+          <Property Name="Lang" Type="nvarchar" MaxLength="6" />
+        </EntityType>
+        <EntityType Name="ListofQuestionsWithDetailsofEachQuestionTAB">
+          <Key>
+            <PropertyRef Name="QuestionNo" />
+          </Key>
+          <Property Name="QuestionNo" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Lang" Type="nvarchar" MaxLength="6" />
+          <Property Name="QuestionType" Type="nvarchar" MaxLength="10" />
+          <Property Name="E1QuestionUseText" Type="bit" />
+          <Property Name="E1QuestionText" Type="nvarchar" MaxLength="500" />
+          <Property Name="E1QuestionAudio" Type="nvarchar" MaxLength="300" />
+          <Property Name="HowManyChoicesforAnswer" Type="int" />
+          <Property Name="E2Option1UseText" Type="bit" />
+          <Property Name="E2Option1Text" Type="nvarchar" MaxLength="300" />
+          <Property Name="E2Option1Audio" Type="nvarchar" MaxLength="300" />
+          <Property Name="E2Option1SpeechEngPhrasesXML" Type="nvarchar" MaxLength="1000" />
+          <Property Name="E3Option2UseText" Type="bit" />
+          <Property Name="E3Option2Text" Type="nvarchar" MaxLength="300" />
+          <Property Name="E3Option2Audio" Type="nvarchar" MaxLength="300" />
+          <Property Name="E3Option2SpeechEngPhrasesXML" Type="nvarchar" MaxLength="1000" />
+          <Property Name="E4Option3UseText" Type="bit" />
+          <Property Name="E4Option3Text" Type="nvarchar" MaxLength="300" />
+          <Property Name="E4Option3Audio" Type="nvarchar" MaxLength="300" />
+          <Property Name="E4Option3SpeechEngPhrasesXML" Type="nvarchar" MaxLength="1000" />
+        </EntityType>
+        <EntityType Name="PhoneCoachingPlanListofSessionsTAB">
+          <Key>
+            <PropertyRef Name="PhLessonID" />
+          </Key>
+          <Property Name="PhLessonID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PhCoachSessionNo" Type="int" />
+          <Property Name="ClassStd" Type="int" />
+          <Property Name="Board" Type="nvarchar" MaxLength="10" />
+          <Property Name="Lang" Type="nvarchar" MaxLength="6" />
+          <Property Name="QuestionPaperNo" Type="int" />
+          <Property Name="Subject" Type="nvarchar" MaxLength="10" />
+          <Property Name="ListofQuestionsXML" Type="nvarchar(max)" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'mylearnthinksavedb.dbo.QuestionPaperTAB' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="QuestionPaperTAB">
+          <Property Name="QuestionPaperNo" Type="int" />
+          <Property Name="Type" Type="nvarchar" MaxLength="10" />
+          <Property Name="SequenceNo" Type="int" />
+          <Property Name="LinktoQuestionorLecture" Type="int" />
+        </EntityType>-->
+        <EntityType Name="UserIdentityTAB">
+          <Key>
+            <PropertyRef Name="userid" />
+          </Key>
+          <Property Name="userid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="100" />
+          <Property Name="email" Type="nvarchar" MaxLength="100" />
+          <Property Name="phone" Type="nvarchar" MaxLength="12" />
+          <Property Name="school" Type="int" />
+          <Property Name="city" Type="int" />
+          <Property Name="langforcomm" Type="nvarchar" MaxLength="5" />
+        </EntityType>
+        <EntityContainer Name="mylearnthinksavedbModelStoreContainer">
+          <EntitySet Name="AudioURLTrascribedStringTAB" EntityType="Self.AudioURLTrascribedStringTAB" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ListofQuestionsWithDetailsofEachQuestionTAB" EntityType="Self.ListofQuestionsWithDetailsofEachQuestionTAB" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PhoneCoachingPlanListofSessionsTAB" EntityType="Self.PhoneCoachingPlanListofSessionsTAB" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserIdentityTAB" EntityType="Self.UserIdentityTAB" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ListofQuestionPapersTAB" EntityType="Self.ListofQuestionPapersTAB" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ListofQuestionPapersTAB].[QuestionPaperNO] AS [QuestionPaperNO], 
+    [ListofQuestionPapersTAB].[ListofQuestions] AS [ListofQuestions], 
+    [ListofQuestionPapersTAB].[ClassStd] AS [ClassStd], 
+    [ListofQuestionPapersTAB].[Board] AS [Board], 
+    [ListofQuestionPapersTAB].[Subject] AS [Subject], 
+    [ListofQuestionPapersTAB].[Lang] AS [Lang]
+    FROM [dbo].[ListofQuestionPapersTAB] AS [ListofQuestionPapersTAB]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="mylearnthinksavedbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AudioURLTrascribedStringTAB">
+          <Key>
+            <PropertyRef Name="AudioId" />
+          </Key>
+          <Property Name="AudioId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AudioURL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TranscribedText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="lang" Type="Byte" />
+        </EntityType>
+        <EntityType Name="ListofQuestionsWithDetailsofEachQuestionTAB">
+          <Key>
+            <PropertyRef Name="QuestionNo" />
+          </Key>
+          <Property Name="QuestionNo" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Lang" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
+          <Property Name="QuestionType" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="E1QuestionUseText" Type="Boolean" />
+          <Property Name="E1QuestionText" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="E1QuestionAudio" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="HowManyChoicesforAnswer" Type="Int32" />
+          <Property Name="E2Option1UseText" Type="Boolean" />
+          <Property Name="E2Option1Text" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="E2Option1Audio" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="E2Option1SpeechEngPhrasesXML" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="E3Option2UseText" Type="Boolean" />
+          <Property Name="E3Option2Text" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="E3Option2Audio" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="E3Option2SpeechEngPhrasesXML" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="E4Option3UseText" Type="Boolean" />
+          <Property Name="E4Option3Text" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="E4Option3Audio" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="E4Option3SpeechEngPhrasesXML" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="PhoneCoachingPlanListofSessionsTAB">
+          <Key>
+            <PropertyRef Name="PhLessonID" />
+          </Key>
+          <Property Name="PhLessonID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PhCoachSessionNo" Type="Int32" />
+          <Property Name="ClassStd" Type="Int32" />
+          <Property Name="Board" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Lang" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
+          <Property Name="QuestionPaperNo" Type="Int32" />
+          <Property Name="Subject" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="ListofQuestionsXML" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="UserIdentityTAB">
+          <Key>
+            <PropertyRef Name="userid" />
+          </Key>
+          <Property Name="userid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="phone" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
+          <Property Name="school" Type="Int32" />
+          <Property Name="city" Type="Int32" />
+          <Property Name="langforcomm" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ListofQuestionPapersTAB">
+          <Key>
+            <PropertyRef Name="QuestionPaperNO" />
+          </Key>
+          <Property Name="QuestionPaperNO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ListofQuestions" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ClassStd" Type="Int32" />
+          <Property Name="Board" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Subject" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Lang" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityContainer Name="mylearnthinksavedbEntitiesFeb29" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AudioURLTrascribedStringTAB" EntityType="Self.AudioURLTrascribedStringTAB" />
+          <EntitySet Name="ListofQuestionsWithDetailsofEachQuestionTAB" EntityType="Self.ListofQuestionsWithDetailsofEachQuestionTAB" />
+          <EntitySet Name="PhoneCoachingPlanListofSessionsTAB" EntityType="Self.PhoneCoachingPlanListofSessionsTAB" />
+          <EntitySet Name="UserIdentityTAB" EntityType="Self.UserIdentityTAB" />
+          <EntitySet Name="ListofQuestionPapersTAB" EntityType="Self.ListofQuestionPapersTAB" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="mylearnthinksavedbModelStoreContainer" CdmEntityContainer="mylearnthinksavedbEntitiesFeb29">
+          <EntitySetMapping Name="AudioURLTrascribedStringTAB">
+            <EntityTypeMapping TypeName="mylearnthinksavedbModel.AudioURLTrascribedStringTAB">
+              <MappingFragment StoreEntitySet="AudioURLTrascribedStringTAB">
+                <ScalarProperty Name="AudioId" ColumnName="AudioId" />
+                <ScalarProperty Name="AudioURL" ColumnName="AudioURL" />
+                <ScalarProperty Name="TranscribedText" ColumnName="TranscribedText" />
+                <ScalarProperty Name="lang" ColumnName="lang" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ListofQuestionsWithDetailsofEachQuestionTAB">
+            <EntityTypeMapping TypeName="mylearnthinksavedbModel.ListofQuestionsWithDetailsofEachQuestionTAB">
+              <MappingFragment StoreEntitySet="ListofQuestionsWithDetailsofEachQuestionTAB">
+                <ScalarProperty Name="QuestionNo" ColumnName="QuestionNo" />
+                <ScalarProperty Name="Lang" ColumnName="Lang" />
+                <ScalarProperty Name="QuestionType" ColumnName="QuestionType" />
+                <ScalarProperty Name="E1QuestionUseText" ColumnName="E1QuestionUseText" />
+                <ScalarProperty Name="E1QuestionText" ColumnName="E1QuestionText" />
+                <ScalarProperty Name="E1QuestionAudio" ColumnName="E1QuestionAudio" />
+                <ScalarProperty Name="HowManyChoicesforAnswer" ColumnName="HowManyChoicesforAnswer" />
+                <ScalarProperty Name="E2Option1UseText" ColumnName="E2Option1UseText" />
+                <ScalarProperty Name="E2Option1Text" ColumnName="E2Option1Text" />
+                <ScalarProperty Name="E2Option1Audio" ColumnName="E2Option1Audio" />
+                <ScalarProperty Name="E2Option1SpeechEngPhrasesXML" ColumnName="E2Option1SpeechEngPhrasesXML" />
+                <ScalarProperty Name="E3Option2UseText" ColumnName="E3Option2UseText" />
+                <ScalarProperty Name="E3Option2Text" ColumnName="E3Option2Text" />
+                <ScalarProperty Name="E3Option2Audio" ColumnName="E3Option2Audio" />
+                <ScalarProperty Name="E3Option2SpeechEngPhrasesXML" ColumnName="E3Option2SpeechEngPhrasesXML" />
+                <ScalarProperty Name="E4Option3UseText" ColumnName="E4Option3UseText" />
+                <ScalarProperty Name="E4Option3Text" ColumnName="E4Option3Text" />
+                <ScalarProperty Name="E4Option3Audio" ColumnName="E4Option3Audio" />
+                <ScalarProperty Name="E4Option3SpeechEngPhrasesXML" ColumnName="E4Option3SpeechEngPhrasesXML" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PhoneCoachingPlanListofSessionsTAB">
+            <EntityTypeMapping TypeName="mylearnthinksavedbModel.PhoneCoachingPlanListofSessionsTAB">
+              <MappingFragment StoreEntitySet="PhoneCoachingPlanListofSessionsTAB">
+                <ScalarProperty Name="PhLessonID" ColumnName="PhLessonID" />
+                <ScalarProperty Name="PhCoachSessionNo" ColumnName="PhCoachSessionNo" />
+                <ScalarProperty Name="ClassStd" ColumnName="ClassStd" />
+                <ScalarProperty Name="Board" ColumnName="Board" />
+                <ScalarProperty Name="Lang" ColumnName="Lang" />
+                <ScalarProperty Name="QuestionPaperNo" ColumnName="QuestionPaperNo" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="ListofQuestionsXML" ColumnName="ListofQuestionsXML" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserIdentityTAB">
+            <EntityTypeMapping TypeName="mylearnthinksavedbModel.UserIdentityTAB">
+              <MappingFragment StoreEntitySet="UserIdentityTAB">
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="school" ColumnName="school" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="langforcomm" ColumnName="langforcomm" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ListofQuestionPapersTAB">
+            <EntityTypeMapping TypeName="mylearnthinksavedbModel.ListofQuestionPapersTAB">
+              <MappingFragment StoreEntitySet="ListofQuestionPapersTAB">
+                <ScalarProperty Name="QuestionPaperNO" ColumnName="QuestionPaperNO" />
+                <ScalarProperty Name="ListofQuestions" ColumnName="ListofQuestions" />
+                <ScalarProperty Name="ClassStd" ColumnName="ClassStd" />
+                <ScalarProperty Name="Board" ColumnName="Board" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="Lang" ColumnName="Lang" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
