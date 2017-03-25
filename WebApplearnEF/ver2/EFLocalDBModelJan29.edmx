@@ -64,6 +64,48 @@ warning 6002: The table/view 'learnthinksavedb.dbo.ListofQuestionPapersTAB' does
           <Property Name="Subject" Type="nvarchar" MaxLength="10" />
           <Property Name="ListofQuestionsXML" Type="nvarchar(max)" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'learnthinksavedb.dbo.QuestionPaperTAB' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="QuestionPaperTAB">
+          <Property Name="QuestionPaperNo" Type="int" />
+          <Property Name="Type" Type="nvarchar" MaxLength="10" />
+          <Property Name="SequenceNo" Type="int" />
+          <Property Name="LinktoQuestionorLecture" Type="int" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'learnthinksavedb.dbo.StudentSubscriptionProgressionTAB' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="StudentSubscriptionProgressionTAB">
+          <Key>
+            <PropertyRef Name="UniqueRowDummy" />
+          </Key>
+          <Property Name="StudentRollNo" Type="bigint" />
+          <Property Name="ClassStd" Type="int" />
+          <Property Name="Lang" Type="nvarchar" MaxLength="6" />
+          <Property Name="Board" Type="nvarchar" MaxLength="10" />
+          <Property Name="Subject" Type="nvarchar" MaxLength="10" />
+          <Property Name="CurrentPhCoachSessionNo" Type="int" />
+          <Property Name="UniqueRowDummy" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="StudentTAB">
+          <Key>
+            <PropertyRef Name="StudentRollNo" />
+          </Key>
+          <Property Name="StudentRollNo" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AssociatedPhoneNo" Type="bigint" />
+          <Property Name="IsthePhoneNoShared" Type="bit" />
+          <Property Name="StudentName" Type="nvarchar" MaxLength="100" />
+          <Property Name="StudentAddresableName" Type="nvarchar" MaxLength="50" />
+          <Property Name="ClassStd" Type="int" />
+          <Property Name="Lang" Type="nvarchar" MaxLength="6" />
+          <Property Name="Board" Type="nvarchar" MaxLength="10" />
+          <Property Name="LastCall" Type="datetime" />
+          <Property Name="LastCallCompletionStatus" Type="nvarchar" MaxLength="6" />
+          <Property Name="LastCallPhCoachSessionNo" Type="int" />
+          <Property Name="LastCallSubject" Type="nchar" MaxLength="10" />
+          <Property Name="StudentAddresableNameAudioURL" Type="nvarchar" MaxLength="200" />
+          <Property Name="IsAddressStudentByAudio" Type="bit" />
+          <Property Name="AssociatedPhoneNoE164" Type="nvarchar" MaxLength="20" />
+        </EntityType>
         <EntityType Name="Table_Test">
           <Key>
             <PropertyRef Name="test1" />
@@ -72,6 +114,11 @@ warning 6002: The table/view 'learnthinksavedb.dbo.ListofQuestionPapersTAB' does
           <Property Name="test4" Type="nvarchar" MaxLength="50" />
           <Property Name="test5" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'learnthinksavedb.dbo.testing' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="testing">
+          <Property Name="test" Type="nchar" MaxLength="10" />
+        </EntityType>-->
         <EntityType Name="UserIdentityTAB">
           <Key>
             <PropertyRef Name="userid" />
@@ -88,6 +135,7 @@ warning 6002: The table/view 'learnthinksavedb.dbo.ListofQuestionPapersTAB' does
           <EntitySet Name="AudioURLTrascribedStringTAB" EntityType="Self.AudioURLTrascribedStringTAB" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ListofQuestionsWithDetailsofEachQuestionTAB" EntityType="Self.ListofQuestionsWithDetailsofEachQuestionTAB" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PhoneCoachingPlanListofSessionsTAB" EntityType="Self.PhoneCoachingPlanListofSessionsTAB" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StudentTAB" EntityType="Self.StudentTAB" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Table_Test" EntityType="Self.Table_Test" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserIdentityTAB" EntityType="Self.UserIdentityTAB" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ListofQuestionPapersTAB" EntityType="Self.ListofQuestionPapersTAB" store:Type="Tables" store:Schema="dbo">
@@ -99,6 +147,17 @@ warning 6002: The table/view 'learnthinksavedb.dbo.ListofQuestionPapersTAB' does
     [ListofQuestionPapersTAB].[Subject] AS [Subject], 
     [ListofQuestionPapersTAB].[Lang] AS [Lang]
     FROM [dbo].[ListofQuestionPapersTAB] AS [ListofQuestionPapersTAB]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="StudentSubscriptionProgressionTAB" EntityType="Self.StudentSubscriptionProgressionTAB" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [StudentSubscriptionProgressionTAB].[StudentRollNo] AS [StudentRollNo], 
+    [StudentSubscriptionProgressionTAB].[ClassStd] AS [ClassStd], 
+    [StudentSubscriptionProgressionTAB].[Lang] AS [Lang], 
+    [StudentSubscriptionProgressionTAB].[Board] AS [Board], 
+    [StudentSubscriptionProgressionTAB].[Subject] AS [Subject], 
+    [StudentSubscriptionProgressionTAB].[CurrentPhCoachSessionNo] AS [CurrentPhCoachSessionNo], 
+    [StudentSubscriptionProgressionTAB].[UniqueRowDummy] AS [UniqueRowDummy]
+    FROM [dbo].[StudentSubscriptionProgressionTAB] AS [StudentSubscriptionProgressionTAB]</DefiningQuery>
           </EntitySet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -189,7 +248,54 @@ warning 6002: The table/view 'learnthinksavedb.dbo.ListofQuestionPapersTAB' does
           <EntitySet Name="ListofQuestionPapersTAB" EntityType="Self.ListofQuestionPapersTAB" />
           <EntitySet Name="ListofQuestionsWithDetailsofEachQuestionTAB" EntityType="Self.ListofQuestionsWithDetailsofEachQuestionTAB" />
           <EntitySet Name="PhoneCoachingPlanListofSessionsTAB" EntityType="Self.PhoneCoachingPlanListofSessionsTAB" />
+          <EntitySet Name="StudentTAB" EntityType="EFlearnthinksavedbModel29Jan2017.StudentTAB" />
+          <EntitySet Name="StudentSubscriptionProgression" EntityType="EFlearnthinksavedbModel29Jan2017.StudentSubscriptionProgression" />
+          <EntitySet Name="StudentSubscriptionProgressionTAB" EntityType="EFlearnthinksavedbModel29Jan2017.StudentSubscriptionProgressionTAB" />
         </EntityContainer>
+        <EntityType Name="StudentTAB">
+          <Key>
+            <PropertyRef Name="StudentRollNo" />
+          </Key>
+          <Property Name="StudentRollNo" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AssociatedPhoneNo" Type="Int64" />
+          <Property Name="IsthePhoneNoShared" Type="Boolean" />
+          <Property Name="StudentName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="StudentAddresableName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ClassStd" Type="Int32" />
+          <Property Name="Lang" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
+          <Property Name="Board" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="LastCall" Type="DateTime" Precision="3" />
+          <Property Name="LastCallCompletionStatus" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
+          <Property Name="LastCallPhCoachSessionNo" Type="Int32" />
+          <Property Name="LastCallSubject" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="StudentAddresableNameAudioURL" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="IsAddressStudentByAudio" Type="Boolean" />
+          <Property Name="AssociatedPhoneNoE164" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="StudentSubscriptionProgression">
+          <Key>
+            <PropertyRef Name="UniqueRowDummy" />
+          </Key>
+          <Property Name="StudentRollNo" Type="Int64" />
+          <Property Name="ClassStd" Type="Int32" />
+          <Property Name="Lang" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
+          <Property Name="Board" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Subject" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="CurrentPhCoachSessionNo" Type="Int32" />
+          <Property Name="UniqueRowDummy" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="StudentSubscriptionProgressionTAB">
+          <Key>
+            <PropertyRef Name="UniqueRowDummy" />
+          </Key>
+          <Property Name="StudentRollNo" Type="Int64" />
+          <Property Name="ClassStd" Type="Int32" />
+          <Property Name="Lang" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
+          <Property Name="Board" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Subject" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="CurrentPhCoachSessionNo" Type="Int32" />
+          <Property Name="UniqueRowDummy" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -276,6 +382,40 @@ warning 6002: The table/view 'learnthinksavedb.dbo.ListofQuestionPapersTAB' does
                 <ScalarProperty Name="QuestionPaperNo" ColumnName="QuestionPaperNo" />
                 <ScalarProperty Name="Subject" ColumnName="Subject" />
                 <ScalarProperty Name="ListofQuestionsXML" ColumnName="ListofQuestionsXML" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StudentTAB">
+            <EntityTypeMapping TypeName="EFlearnthinksavedbModel29Jan2017.StudentTAB">
+              <MappingFragment StoreEntitySet="StudentTAB">
+                <ScalarProperty Name="AssociatedPhoneNoE164" ColumnName="AssociatedPhoneNoE164" />
+                <ScalarProperty Name="IsAddressStudentByAudio" ColumnName="IsAddressStudentByAudio" />
+                <ScalarProperty Name="StudentAddresableNameAudioURL" ColumnName="StudentAddresableNameAudioURL" />
+                <ScalarProperty Name="LastCallSubject" ColumnName="LastCallSubject" />
+                <ScalarProperty Name="LastCallPhCoachSessionNo" ColumnName="LastCallPhCoachSessionNo" />
+                <ScalarProperty Name="LastCallCompletionStatus" ColumnName="LastCallCompletionStatus" />
+                <ScalarProperty Name="LastCall" ColumnName="LastCall" />
+                <ScalarProperty Name="Board" ColumnName="Board" />
+                <ScalarProperty Name="Lang" ColumnName="Lang" />
+                <ScalarProperty Name="ClassStd" ColumnName="ClassStd" />
+                <ScalarProperty Name="StudentAddresableName" ColumnName="StudentAddresableName" />
+                <ScalarProperty Name="StudentName" ColumnName="StudentName" />
+                <ScalarProperty Name="IsthePhoneNoShared" ColumnName="IsthePhoneNoShared" />
+                <ScalarProperty Name="AssociatedPhoneNo" ColumnName="AssociatedPhoneNo" />
+                <ScalarProperty Name="StudentRollNo" ColumnName="StudentRollNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StudentSubscriptionProgressionTAB">
+            <EntityTypeMapping TypeName="EFlearnthinksavedbModel29Jan2017.StudentSubscriptionProgressionTAB">
+              <MappingFragment StoreEntitySet="StudentSubscriptionProgressionTAB">
+                <ScalarProperty Name="UniqueRowDummy" ColumnName="UniqueRowDummy" />
+                <ScalarProperty Name="CurrentPhCoachSessionNo" ColumnName="CurrentPhCoachSessionNo" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="Board" ColumnName="Board" />
+                <ScalarProperty Name="Lang" ColumnName="Lang" />
+                <ScalarProperty Name="ClassStd" ColumnName="ClassStd" />
+                <ScalarProperty Name="StudentRollNo" ColumnName="StudentRollNo" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
