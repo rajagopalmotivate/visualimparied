@@ -13,10 +13,10 @@ namespace WebApplearnEF.ver2
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class learnthinksavedbEntities29Jan2016 : DbContext
+    public partial class EFDBModelMar26 : DbContext
     {
-        public learnthinksavedbEntities29Jan2016()
-            : base("name=learnthinksavedbEntities29Jan2016")
+        public EFDBModelMar26()
+            : base("name=EFDBModelMar26")
         {
         }
     
@@ -26,12 +26,12 @@ namespace WebApplearnEF.ver2
         }
     
         public virtual DbSet<AudioURLTrascribedStringTAB> AudioURLTrascribedStringTAB { get; set; }
-        public virtual DbSet<Table_Test> Table_Test { get; set; }
-        public virtual DbSet<UserIdentityTAB> UserIdentityTAB { get; set; }
-        public virtual DbSet<ListofQuestionPapersTAB> ListofQuestionPapersTAB { get; set; }
         public virtual DbSet<ListofQuestionsWithDetailsofEachQuestionTAB> ListofQuestionsWithDetailsofEachQuestionTAB { get; set; }
         public virtual DbSet<PhoneCoachingPlanListofSessionsTAB> PhoneCoachingPlanListofSessionsTAB { get; set; }
         public virtual DbSet<StudentTAB> StudentTAB { get; set; }
+        public virtual DbSet<Table_Test> Table_Test { get; set; }
+        public virtual DbSet<UserIdentityTAB> UserIdentityTAB { get; set; }
+        public virtual DbSet<ListofQuestionPapersTAB> ListofQuestionPapersTAB { get; set; }
         public virtual DbSet<StudentSubscriptionProgressionTAB> StudentSubscriptionProgressionTAB { get; set; }
     }
 }

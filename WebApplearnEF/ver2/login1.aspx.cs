@@ -23,11 +23,13 @@ namespace WebApplearnEF.ver2
 
         private bool isExisitingUserinDB_And_LoginIfExisitng(string phoneno)
         {
-            bool isExisitingUser = false; 
-            using (var context = new  learnthinksavedbEntities29Jan2016 ())
+            bool isExisitingUser = false;
+
+
+            using (var context = new learnthinksavedbEntities29Jan2016())
             {
-                         
-        
+
+
 
                 var users = from auser in context.UserIdentityTAB
                             where auser.phone == phoneno
@@ -36,28 +38,28 @@ namespace WebApplearnEF.ver2
 
                 int noofusersmatched = users.Count();
 
-                if (noofusersmatched == 0 ) isExisitingUser = false;
+                if (noofusersmatched == 0) isExisitingUser = false;
                 else
                 {
                     isExisitingUser = true;
 
                     // If more than 1 user is associated with the same phone no, redirect to another screen to login by UserID
-                    if( noofusersmatched > 1)
+                    if (noofusersmatched > 1)
                     {
-                        Response.Redirect("LoginByUserID.aspx?phoneno=" + phoneno );
+                        Response.Redirect("LoginByUserID.aspx?phoneno=" + phoneno);
                     }
 
                     if (noofusersmatched == 1)
-                    foreach ( var user in users )
-                    {
-                        int userid  =   user.userid;
+                        foreach (var user in users)
+                        {
+                            int userid = user.userid;
                             Response.Redirect("HomePage.aspx?phoneno=" + phoneno + "&userID=" + userid);
-                     }
+                        }
 
                     // logginUser = users.First <UserIdentityTAB> () ;
                 }
-               
-                
+
+
                 /*
                 var L2EQuery = context.UserIdentityTABs.Where(s => s.phone == phoneno);
                 var userrow = L2EQuery.FirstOrDefault<UserIdentityTAB>();

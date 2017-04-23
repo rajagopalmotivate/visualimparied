@@ -1,0 +1,89 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+	<meta charset="utf-8" />
+    <script src="https://www.WebRTC-Experiment.com/RecordRTC.js"></script>
+</head>
+<body>
+
+    <section class="experiment recordrtc">
+        <small style="color: red;position: absolute;width: 100%;left: 0;text-align: center;">Last Updated On: <time>March 11, 2017</time></small>
+
+        <h2 class="header">
+            <select class="recording-media">
+                <option value="record-audio-plus-video">Microphone+Camera</option>
+                <option value="record-audio">Microphone</option>
+                <option value="record-screen">Full Screen</option>
+                <option value="record-audio-plus-screen">Microphone+Screen</option>
+            </select>
+
+            <span style="font-size: 15px;">into</span>
+
+            <select class="media-container-format">
+                <option>vp8</option>
+                <option>vp9</option>
+                <option>h264</option>
+                <option disabled="">opus</option>
+                <option disabled="">pcm</option>
+                <option>gif</option>
+                <option>whammy</option>
+            </select>
+
+            <input type="checkbox" id="chk-MultiStreamRecorder" style="margin:0;width:auto;">
+            <label for="chk-MultiStreamRecorder" style="font-size: 15px;margin:0;width: auto;cursor: pointer;-webkit-user-select:none;user-select:none;">All cameras?</label>
+
+            <br>
+
+            <button id="btn-start-recording">Start Recording</button>
+            <button id="btn-pause-recording" style="display: none; font-size: 15px;">Pause</button>
+
+            <hr style="border-top: 0;border-bottom: 1px solid rgb(189, 189, 189);margin: 4px -12px;margin-top: 8px;">
+            <select class="media-resolutions">
+                <option value="default">Default resolutions</option>
+                <option value="1920x1080">1080p</option>
+                <option value="1280x720">720p</option>
+                <option value="3840x2160">4K Ultra HD (3840x2160)</option>
+            </select>
+
+            <select class="media-framerates">
+                <option value="default">Default framerates</option>
+                <option value="5">5 fps</option>
+                <option value="15">15 fps</option>
+                <option value="24">24 fps</option>
+                <option value="30">30 fps</option>
+                <option value="60">60 fps</option>
+            </select>
+
+            <select class="media-bitrates">
+                <option value="default">Default bitrates</option>
+                <option value="8000000000">1 GB bps</option>
+                <option value="800000000">100 MB bps</option>
+                <option value="8000000">1 MB bps</option>
+                <option value="800000">100 KB bps</option>
+                <option value="8000">1 KB bps</option>
+                <option value="800">100 Bytes bps</option>
+            </select>
+        </h2>
+
+        <div style="text-align: center; display: none;">
+            <button id="save-to-disk">Save To Disk</button>
+            <button id="upload-to-php">Upload to PHP</button>
+            <button id="open-new-tab">Open New Tab</button>
+
+            <div style="margin-top: 10px;">
+                <span id="signinButton" class="pre-sign-in">
+                    <div id="___signin_0" style="text-indent: 0px; margin: 0px; padding: 0px; background: transparent; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 115px; height: 35px; position: relative;"><button style="opacity: 0; z-index: 10000; left: 0px; top: 0px; position: absolute; cursor: pointer; outline: 0px; width: 115px; height: 35px;">Sign in with Google</button><iframe ng-non-bindable="" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" style="position: static; top: 0px; width: 115px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 35px;" tabindex="0" vspace="0" width="100%" id="I0_1492537533969" name="I0_1492537533969" src="https://apis.google.com/_/widget/render/signin?usegapi=1&amp;clientid=41556190767-7amutgh7ug0dfkkeb9fkrpt8j86rv5o3.apps.googleusercontent.com&amp;cookiepolicy=single_host_origin&amp;scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fyoutube.upload%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fyoutube&amp;origin=https%3A%2F%2Fwww.webrtc-experiment.com&amp;url=https%3A%2F%2Fwww.webrtc-experiment.com%2FRecordRTC%2F&amp;gsrc=3p&amp;ic=1&amp;jsh=m%3B%2F_%2Fscs%2Fapps-static%2F_%2Fjs%2Fk%3Doz.gapi.en_US.ODwdttQ3JAo.O%2Fm%3D__features__%2Fam%3DAQ%2Frt%3Dj%2Fd%3D1%2Frs%3DAGLTcCMGlayuf-geasg_1j1cA4cbN92nBw#_methods=onPlusOne%2C_ready%2C_close%2C_open%2C_resizeMe%2C_renderstart%2Concircled%2Cdrefresh%2Cerefresh%2Conauth%2Conload&amp;id=I0_1492537533969&amp;parent=https%3A%2F%2Fwww.webrtc-experiment.com&amp;pfname=&amp;rpctoken=26360126" data-gapiattached="true" title="Sign in with Google"></iframe></div>
+                </span>
+
+                <button id="upload-to-youtube" style="vertical-align:top;">Upload to YouTube</button>
+            </div>
+        </div>
+
+        <div style="margin-top: 10px;">
+            <video controls="" muted=""></video>
+        </div>
+    </section>
+
+</body>
+</html>

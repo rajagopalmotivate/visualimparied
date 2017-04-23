@@ -53,6 +53,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplearnEF", "WebApplear
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication2test4", "WebApplication2test4\WebApplication2test4.csproj", "{913E2E66-FD26-414C-84FC-1D7A982F1E2C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication2Test3", "WebApplication2Test3\WebApplication2Test3.csproj", "{CC54B70C-B13E-4F98-AFDE-093C834D5A90}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -79,6 +81,10 @@ Global
 		{913E2E66-FD26-414C-84FC-1D7A982F1E2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{913E2E66-FD26-414C-84FC-1D7A982F1E2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{913E2E66-FD26-414C-84FC-1D7A982F1E2C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC54B70C-B13E-4F98-AFDE-093C834D5A90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC54B70C-B13E-4F98-AFDE-093C834D5A90}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC54B70C-B13E-4F98-AFDE-093C834D5A90}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC54B70C-B13E-4F98-AFDE-093C834D5A90}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

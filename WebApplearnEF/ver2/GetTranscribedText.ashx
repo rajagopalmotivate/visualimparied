@@ -1,5 +1,4 @@
-﻿
-<%@ WebHandler Language="C#" Class="JHandler" %>
+﻿<%@ WebHandler Language="C#" Class="JHandler" %>
 
 using System;
 using System.Web;
@@ -168,14 +167,20 @@ public class JHandler : IHttpHandler
         return ans;
     }
 
+
+    //Be thankful. <Say>Thank you my LORD Jesus, Made possible only due to JESUS's grace </Say>
     private string fetchResponsebasedonnTranscribedText(string uniquegooglecallidentifier)
     {
         string transribedtext = transcribeAsyncGetTranscribedText(uniquegooglecallidentifier);
+
+        string redirecturl = "UnderstandSpokenSentance.ashx?spokensentance=" + transribedtext; 
+
         string answerxml = @"
                <Response> 
                     <Say>You said</Say>"+
                     "<Say>"+ transribedtext +"</Say>"+
-                     "<Say>Thank you my LORD Jesus, Made possible only due to JESUS's grace </Say>"+
+                     "<Say>Please wait</Say>"+
+                  "<Redirect method='GET'>" + redirecturl + "</Redirect>" +                
                "</Response>";
         return answerxml;
     }
@@ -203,7 +208,7 @@ public class JHandler : IHttpHandler
 
                 answerxml = @"
                <Response> 
-                    <Say>music transcribing</Say>" +
+                    <Say>recognizing your speech</Say>" +
                     "<Redirect method='GET'>" + redirecturl + "</Redirect>"+
                "</Response>";
             }

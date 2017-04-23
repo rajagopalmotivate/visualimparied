@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="EFlearnthinksavedbModel29Jan2017.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="EFDBModelMar26Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AudioURLTrascribedStringTAB">
           <Key>
             <PropertyRef Name="AudioId" />
@@ -131,7 +131,7 @@ warning 6013: The table/view 'learnthinksavedb.dbo.testing' does not have a prim
           <Property Name="city" Type="int" />
           <Property Name="langforcomm" Type="nvarchar" MaxLength="5" />
         </EntityType>
-        <EntityContainer Name="EFlearnthinksavedbModel29Jan2017StoreContainer">
+        <EntityContainer Name="EFDBModelMar26ModelStoreContainer">
           <EntitySet Name="AudioURLTrascribedStringTAB" EntityType="Self.AudioURLTrascribedStringTAB" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ListofQuestionsWithDetailsofEachQuestionTAB" EntityType="Self.ListofQuestionsWithDetailsofEachQuestionTAB" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PhoneCoachingPlanListofSessionsTAB" EntityType="Self.PhoneCoachingPlanListofSessionsTAB" Schema="dbo" store:Type="Tables" />
@@ -160,10 +160,11 @@ warning 6013: The table/view 'learnthinksavedb.dbo.testing' does not have a prim
     FROM [dbo].[StudentSubscriptionProgressionTAB] AS [StudentSubscriptionProgressionTAB]</DefiningQuery>
           </EntitySet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="EFlearnthinksavedbModel29Jan2017" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="EFDBModelMar26Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="AudioURLTrascribedStringTAB">
           <Key>
             <PropertyRef Name="AudioId" />
@@ -172,37 +173,6 @@ warning 6013: The table/view 'learnthinksavedb.dbo.testing' does not have a prim
           <Property Name="AudioURL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="TranscribedText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="lang" Type="Byte" />
-        </EntityType>
-        <EntityType Name="Table_Test">
-          <Key>
-            <PropertyRef Name="test1" />
-          </Key>
-          <Property Name="test1" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="test4" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="test5" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="UserIdentityTAB">
-          <Key>
-            <PropertyRef Name="userid" />
-          </Key>
-          <Property Name="userid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="phone" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
-          <Property Name="school" Type="Int32" />
-          <Property Name="city" Type="Int32" />
-          <Property Name="langforcomm" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="ListofQuestionPapersTAB">
-          <Key>
-            <PropertyRef Name="QuestionPaperNO" />
-          </Key>
-          <Property Name="QuestionPaperNO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ListofQuestions" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="ClassStd" Type="Int32" />
-          <Property Name="Board" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="Subject" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="Lang" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="ListofQuestionsWithDetailsofEachQuestionTAB">
           <Key>
@@ -241,16 +211,6 @@ warning 6013: The table/view 'learnthinksavedb.dbo.testing' does not have a prim
           <Property Name="Subject" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="ListofQuestionsXML" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityContainer Name="learnthinksavedbEntities29Jan2016" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="AudioURLTrascribedStringTAB" EntityType="Self.AudioURLTrascribedStringTAB" />
-          <EntitySet Name="Table_Test" EntityType="Self.Table_Test" />
-          <EntitySet Name="UserIdentityTAB" EntityType="Self.UserIdentityTAB" />
-          <EntitySet Name="ListofQuestionPapersTAB" EntityType="Self.ListofQuestionPapersTAB" />
-          <EntitySet Name="ListofQuestionsWithDetailsofEachQuestionTAB" EntityType="Self.ListofQuestionsWithDetailsofEachQuestionTAB" />
-          <EntitySet Name="PhoneCoachingPlanListofSessionsTAB" EntityType="Self.PhoneCoachingPlanListofSessionsTAB" />
-          <EntitySet Name="StudentTAB" EntityType="EFlearnthinksavedbModel29Jan2017.StudentTAB" />
-          <EntitySet Name="StudentSubscriptionProgressionTAB" EntityType="EFlearnthinksavedbModel29Jan2017.StudentSubscriptionProgressionTAB" />
-        </EntityContainer>
         <EntityType Name="StudentTAB">
           <Key>
             <PropertyRef Name="StudentRollNo" />
@@ -271,6 +231,37 @@ warning 6013: The table/view 'learnthinksavedb.dbo.testing' does not have a prim
           <Property Name="IsAddressStudentByAudio" Type="Boolean" />
           <Property Name="AssociatedPhoneNoE164" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="Table_Test">
+          <Key>
+            <PropertyRef Name="test1" />
+          </Key>
+          <Property Name="test1" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="test4" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="test5" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="UserIdentityTAB">
+          <Key>
+            <PropertyRef Name="userid" />
+          </Key>
+          <Property Name="userid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="phone" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
+          <Property Name="school" Type="Int32" />
+          <Property Name="city" Type="Int32" />
+          <Property Name="langforcomm" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ListofQuestionPapersTAB">
+          <Key>
+            <PropertyRef Name="QuestionPaperNO" />
+          </Key>
+          <Property Name="QuestionPaperNO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ListofQuestions" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ClassStd" Type="Int32" />
+          <Property Name="Board" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Subject" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Lang" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
+        </EntityType>
         <EntityType Name="StudentSubscriptionProgressionTAB">
           <Key>
             <PropertyRef Name="UniqueRowDummy" />
@@ -283,14 +274,24 @@ warning 6013: The table/view 'learnthinksavedb.dbo.testing' does not have a prim
           <Property Name="CurrentPhCoachSessionNo" Type="Int32" />
           <Property Name="UniqueRowDummy" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
+        <EntityContainer Name="EFDBModelMar26" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AudioURLTrascribedStringTAB" EntityType="Self.AudioURLTrascribedStringTAB" />
+          <EntitySet Name="ListofQuestionsWithDetailsofEachQuestionTAB" EntityType="Self.ListofQuestionsWithDetailsofEachQuestionTAB" />
+          <EntitySet Name="PhoneCoachingPlanListofSessionsTAB" EntityType="Self.PhoneCoachingPlanListofSessionsTAB" />
+          <EntitySet Name="StudentTAB" EntityType="Self.StudentTAB" />
+          <EntitySet Name="Table_Test" EntityType="Self.Table_Test" />
+          <EntitySet Name="UserIdentityTAB" EntityType="Self.UserIdentityTAB" />
+          <EntitySet Name="ListofQuestionPapersTAB" EntityType="Self.ListofQuestionPapersTAB" />
+          <EntitySet Name="StudentSubscriptionProgressionTAB" EntityType="Self.StudentSubscriptionProgressionTAB" />
+        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="EFlearnthinksavedbModel29Jan2017StoreContainer" CdmEntityContainer="learnthinksavedbEntities29Jan2016">
+        <EntityContainerMapping StorageEntityContainer="EFDBModelMar26ModelStoreContainer" CdmEntityContainer="EFDBModelMar26">
           <EntitySetMapping Name="AudioURLTrascribedStringTAB">
-            <EntityTypeMapping TypeName="EFlearnthinksavedbModel29Jan2017.AudioURLTrascribedStringTAB">
+            <EntityTypeMapping TypeName="EFDBModelMar26Model.AudioURLTrascribedStringTAB">
               <MappingFragment StoreEntitySet="AudioURLTrascribedStringTAB">
                 <ScalarProperty Name="AudioId" ColumnName="AudioId" />
                 <ScalarProperty Name="AudioURL" ColumnName="AudioURL" />
@@ -299,42 +300,8 @@ warning 6013: The table/view 'learnthinksavedb.dbo.testing' does not have a prim
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Table_Test">
-            <EntityTypeMapping TypeName="EFlearnthinksavedbModel29Jan2017.Table_Test">
-              <MappingFragment StoreEntitySet="Table_Test">
-                <ScalarProperty Name="test1" ColumnName="test1" />
-                <ScalarProperty Name="test4" ColumnName="test4" />
-                <ScalarProperty Name="test5" ColumnName="test5" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="UserIdentityTAB">
-            <EntityTypeMapping TypeName="EFlearnthinksavedbModel29Jan2017.UserIdentityTAB">
-              <MappingFragment StoreEntitySet="UserIdentityTAB">
-                <ScalarProperty Name="userid" ColumnName="userid" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="email" ColumnName="email" />
-                <ScalarProperty Name="phone" ColumnName="phone" />
-                <ScalarProperty Name="school" ColumnName="school" />
-                <ScalarProperty Name="city" ColumnName="city" />
-                <ScalarProperty Name="langforcomm" ColumnName="langforcomm" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ListofQuestionPapersTAB">
-            <EntityTypeMapping TypeName="EFlearnthinksavedbModel29Jan2017.ListofQuestionPapersTAB">
-              <MappingFragment StoreEntitySet="ListofQuestionPapersTAB">
-                <ScalarProperty Name="QuestionPaperNO" ColumnName="QuestionPaperNO" />
-                <ScalarProperty Name="ListofQuestions" ColumnName="ListofQuestions" />
-                <ScalarProperty Name="ClassStd" ColumnName="ClassStd" />
-                <ScalarProperty Name="Board" ColumnName="Board" />
-                <ScalarProperty Name="Subject" ColumnName="Subject" />
-                <ScalarProperty Name="Lang" ColumnName="Lang" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="ListofQuestionsWithDetailsofEachQuestionTAB">
-            <EntityTypeMapping TypeName="EFlearnthinksavedbModel29Jan2017.ListofQuestionsWithDetailsofEachQuestionTAB">
+            <EntityTypeMapping TypeName="EFDBModelMar26Model.ListofQuestionsWithDetailsofEachQuestionTAB">
               <MappingFragment StoreEntitySet="ListofQuestionsWithDetailsofEachQuestionTAB">
                 <ScalarProperty Name="QuestionNo" ColumnName="QuestionNo" />
                 <ScalarProperty Name="Lang" ColumnName="Lang" />
@@ -359,7 +326,7 @@ warning 6013: The table/view 'learnthinksavedb.dbo.testing' does not have a prim
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="PhoneCoachingPlanListofSessionsTAB">
-            <EntityTypeMapping TypeName="EFlearnthinksavedbModel29Jan2017.PhoneCoachingPlanListofSessionsTAB">
+            <EntityTypeMapping TypeName="EFDBModelMar26Model.PhoneCoachingPlanListofSessionsTAB">
               <MappingFragment StoreEntitySet="PhoneCoachingPlanListofSessionsTAB">
                 <ScalarProperty Name="PhLessonID" ColumnName="PhLessonID" />
                 <ScalarProperty Name="PhCoachSessionNo" ColumnName="PhCoachSessionNo" />
@@ -373,36 +340,70 @@ warning 6013: The table/view 'learnthinksavedb.dbo.testing' does not have a prim
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="StudentTAB">
-            <EntityTypeMapping TypeName="EFlearnthinksavedbModel29Jan2017.StudentTAB">
+            <EntityTypeMapping TypeName="EFDBModelMar26Model.StudentTAB">
               <MappingFragment StoreEntitySet="StudentTAB">
-                <ScalarProperty Name="AssociatedPhoneNoE164" ColumnName="AssociatedPhoneNoE164" />
-                <ScalarProperty Name="IsAddressStudentByAudio" ColumnName="IsAddressStudentByAudio" />
-                <ScalarProperty Name="StudentAddresableNameAudioURL" ColumnName="StudentAddresableNameAudioURL" />
-                <ScalarProperty Name="LastCallSubject" ColumnName="LastCallSubject" />
-                <ScalarProperty Name="LastCallPhCoachSessionNo" ColumnName="LastCallPhCoachSessionNo" />
-                <ScalarProperty Name="LastCallCompletionStatus" ColumnName="LastCallCompletionStatus" />
-                <ScalarProperty Name="LastCall" ColumnName="LastCall" />
-                <ScalarProperty Name="Board" ColumnName="Board" />
-                <ScalarProperty Name="Lang" ColumnName="Lang" />
-                <ScalarProperty Name="ClassStd" ColumnName="ClassStd" />
-                <ScalarProperty Name="StudentAddresableName" ColumnName="StudentAddresableName" />
-                <ScalarProperty Name="StudentName" ColumnName="StudentName" />
-                <ScalarProperty Name="IsthePhoneNoShared" ColumnName="IsthePhoneNoShared" />
-                <ScalarProperty Name="AssociatedPhoneNo" ColumnName="AssociatedPhoneNo" />
                 <ScalarProperty Name="StudentRollNo" ColumnName="StudentRollNo" />
+                <ScalarProperty Name="AssociatedPhoneNo" ColumnName="AssociatedPhoneNo" />
+                <ScalarProperty Name="IsthePhoneNoShared" ColumnName="IsthePhoneNoShared" />
+                <ScalarProperty Name="StudentName" ColumnName="StudentName" />
+                <ScalarProperty Name="StudentAddresableName" ColumnName="StudentAddresableName" />
+                <ScalarProperty Name="ClassStd" ColumnName="ClassStd" />
+                <ScalarProperty Name="Lang" ColumnName="Lang" />
+                <ScalarProperty Name="Board" ColumnName="Board" />
+                <ScalarProperty Name="LastCall" ColumnName="LastCall" />
+                <ScalarProperty Name="LastCallCompletionStatus" ColumnName="LastCallCompletionStatus" />
+                <ScalarProperty Name="LastCallPhCoachSessionNo" ColumnName="LastCallPhCoachSessionNo" />
+                <ScalarProperty Name="LastCallSubject" ColumnName="LastCallSubject" />
+                <ScalarProperty Name="StudentAddresableNameAudioURL" ColumnName="StudentAddresableNameAudioURL" />
+                <ScalarProperty Name="IsAddressStudentByAudio" ColumnName="IsAddressStudentByAudio" />
+                <ScalarProperty Name="AssociatedPhoneNoE164" ColumnName="AssociatedPhoneNoE164" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Table_Test">
+            <EntityTypeMapping TypeName="EFDBModelMar26Model.Table_Test">
+              <MappingFragment StoreEntitySet="Table_Test">
+                <ScalarProperty Name="test1" ColumnName="test1" />
+                <ScalarProperty Name="test4" ColumnName="test4" />
+                <ScalarProperty Name="test5" ColumnName="test5" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserIdentityTAB">
+            <EntityTypeMapping TypeName="EFDBModelMar26Model.UserIdentityTAB">
+              <MappingFragment StoreEntitySet="UserIdentityTAB">
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="school" ColumnName="school" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="langforcomm" ColumnName="langforcomm" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ListofQuestionPapersTAB">
+            <EntityTypeMapping TypeName="EFDBModelMar26Model.ListofQuestionPapersTAB">
+              <MappingFragment StoreEntitySet="ListofQuestionPapersTAB">
+                <ScalarProperty Name="QuestionPaperNO" ColumnName="QuestionPaperNO" />
+                <ScalarProperty Name="ListofQuestions" ColumnName="ListofQuestions" />
+                <ScalarProperty Name="ClassStd" ColumnName="ClassStd" />
+                <ScalarProperty Name="Board" ColumnName="Board" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="Lang" ColumnName="Lang" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="StudentSubscriptionProgressionTAB">
-            <EntityTypeMapping TypeName="EFlearnthinksavedbModel29Jan2017.StudentSubscriptionProgressionTAB">
+            <EntityTypeMapping TypeName="EFDBModelMar26Model.StudentSubscriptionProgressionTAB">
               <MappingFragment StoreEntitySet="StudentSubscriptionProgressionTAB">
-                <ScalarProperty Name="UniqueRowDummy" ColumnName="UniqueRowDummy" />
-                <ScalarProperty Name="CurrentPhCoachSessionNo" ColumnName="CurrentPhCoachSessionNo" />
-                <ScalarProperty Name="Subject" ColumnName="Subject" />
-                <ScalarProperty Name="Board" ColumnName="Board" />
-                <ScalarProperty Name="Lang" ColumnName="Lang" />
-                <ScalarProperty Name="ClassStd" ColumnName="ClassStd" />
                 <ScalarProperty Name="StudentRollNo" ColumnName="StudentRollNo" />
+                <ScalarProperty Name="ClassStd" ColumnName="ClassStd" />
+                <ScalarProperty Name="Lang" ColumnName="Lang" />
+                <ScalarProperty Name="Board" ColumnName="Board" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="CurrentPhCoachSessionNo" ColumnName="CurrentPhCoachSessionNo" />
+                <ScalarProperty Name="UniqueRowDummy" ColumnName="UniqueRowDummy" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

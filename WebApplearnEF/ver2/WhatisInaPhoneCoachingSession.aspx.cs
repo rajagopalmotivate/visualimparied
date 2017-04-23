@@ -105,14 +105,23 @@ namespace WebApplearnEF.ver2
                 return; 
             }
 
+            if (arrayofquestionnos.Length == 0)
+            {
+                intarrayofquestionnos = null;
+                this.HyperLink2.Text = "No questions have been addded so far.";
+                return;
+            }
+
             for (int i = 0; i < intarrayofquestionnos.Length; i++)
             {
                 int j = -1;
 
-                if (i < arrayofquestionnos.Length) j = i; else j = 0; 
+                if (i < arrayofquestionnos.Length) j = i; else j = 0;
 
-
-                intarrayofquestionnos[i] = int.Parse( arrayofquestionnos[j]); 
+                if (arrayofquestionnos[j].Length == 0)
+                    intarrayofquestionnos[i] = 0; 
+                else
+                    intarrayofquestionnos[i] = int.Parse(arrayofquestionnos[j]); 
             }
 
 

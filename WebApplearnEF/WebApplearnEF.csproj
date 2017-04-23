@@ -84,8 +84,8 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Runtime.Serialization" />
@@ -106,12 +106,16 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Twilio">
+      <HintPath>..\packages\Twilio.5.1.1\lib\net451\Twilio.dll</HintPath>
+    </Reference>
     <Reference Include="Zlib.Portable, Version=1.11.0.0, Culture=neutral, PublicKeyToken=431cba815f6a8b5b, processorArchitecture=MSIL">
       <HintPath>..\packages\Zlib.Portable.Signed.1.11.0\lib\portable-net4+sl5+wp8+win8+wpa81+MonoTouch+MonoAndroid\Zlib.Portable.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="HtmlPage1.html" />
     <Content Include="packages.config" />
     <Content Include="ver1\Alarm03.wav" />
     <Content Include="ver1\Alarm06.wav" />
@@ -123,6 +127,16 @@
     <Content Include="ver2\Alarm06.wav" />
     <Content Include="ver2\ChangeQuestionSequenceInPhoneCoachingSession.aspx" />
     <Content Include="ver2\EditaQuestion.aspx" />
+    <Content Include="ver2\EFDBModelMar26.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>EFDBModelMar26.edmx</DependentUpon>
+      <LastGenOutput>EFDBModelMar26.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="ver2\EFDBModelMar26.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>EFDBModelMar26.edmx</DependentUpon>
+      <LastGenOutput>EFDBModelMar26.cs</LastGenOutput>
+    </Content>
     <Content Include="ver2\EFLocalDBModelFeb29.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>EFLocalDBModelFeb29.edmx</DependentUpon>
@@ -149,6 +163,7 @@
     <Content Include="ver2\RegisterUser1.aspx" />
     <Content Include="ver2\Ring02.wav" />
     <Content Include="ver2\testing12.aspx" />
+    <Content Include="ver2\twilio\MakeOutboundCall.aspx" />
     <Content Include="ver2\ViewCoachingSessionByClass.aspx" />
     <Content Include="ver2\ViewListofQuestionsTAB.aspx" />
     <Content Include="ver2\ViewPhCoachingTable.aspx" />
@@ -191,6 +206,18 @@
     <Content Include="ver2\EFLocalDBModelFeb29.edmx.diagram">
       <DependentUpon>EFLocalDBModelFeb29.edmx</DependentUpon>
     </Content>
+    <Content Include="ver2\UnderstandSpokenSentance.ashx" />
+    <Content Include="ver2\kookoo\KooWelcome.ashx" />
+    <EntityDeploy Include="ver2\EFDBModelMar26.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>EFDBModelMar26.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="ver2\EFDBModelMar26.edmx.diagram">
+      <DependentUpon>EFDBModelMar26.edmx</DependentUpon>
+    </Content>
+    <Content Include="ver2\twilio\TrackAnOutboundCall.ashx" />
+    <Content Include="ver2\kookoo\adddnewuser.ashx" />
+    <Content Include="ver2\kookoo\adddnewusersteps.ashx" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -227,7 +254,7 @@
       <DependentUpon>AddQuestiontoPhoneId.aspx</DependentUpon>
     </Compile>
     <Compile Include="ver2\AudioURLTrascribedStringTAB.cs">
-      <DependentUpon>EFLocalDBModelFeb29.tt</DependentUpon>
+      <DependentUpon>EFLocalDBModelJan29.tt</DependentUpon>
     </Compile>
     <Compile Include="ver2\ChangeQuestionSequenceInPhoneCoachingSession.aspx.cs">
       <DependentUpon>ChangeQuestionSequenceInPhoneCoachingSession.aspx</DependentUpon>
@@ -242,6 +269,21 @@
     </Compile>
     <Compile Include="ver2\EditaQuestion.aspx.designer.cs">
       <DependentUpon>EditaQuestion.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ver2\EFDBModelMar26.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EFDBModelMar26.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ver2\EFDBModelMar26.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EFDBModelMar26.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ver2\EFDBModelMar26.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EFDBModelMar26.edmx</DependentUpon>
     </Compile>
     <Compile Include="ver2\EFLocalDBModelFeb29.Context.cs">
       <AutoGen>True</AutoGen>
@@ -287,14 +329,22 @@
     <Compile Include="ver2\HomePage.aspx.designer.cs">
       <DependentUpon>HomePage.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ver2\kookoo\StudentStatus.cs" />
+    <Compile Include="ver2\kookoo\UtilitiesClasses.cs" />
     <Compile Include="ver2\ListofQuestionPapersTAB.cs">
-      <DependentUpon>EFLocalDBModelFeb29.tt</DependentUpon>
+      <DependentUpon>EFLocalDBModelJan29.tt</DependentUpon>
     </Compile>
     <Compile Include="ver2\ListofQuestionsWithDetailsofEachQuestionTAB.cs">
-      <DependentUpon>EFLocalDBModelFeb29.tt</DependentUpon>
+      <DependentUpon>EFLocalDBModelJan29.tt</DependentUpon>
     </Compile>
     <Compile Include="ver2\PhoneCoachingPlanListofSessionsTAB.cs">
-      <DependentUpon>EFLocalDBModelFeb29.tt</DependentUpon>
+      <DependentUpon>EFLocalDBModelJan29.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ver2\StudentSubscriptionProgressionTAB.cs">
+      <DependentUpon>EFLocalDBModelJan29.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ver2\StudentTAB.cs">
+      <DependentUpon>EFLocalDBModelJan29.tt</DependentUpon>
     </Compile>
     <Compile Include="ver2\Table_Test.cs">
       <DependentUpon>EFLocalDBModelJan29.tt</DependentUpon>
@@ -306,8 +356,18 @@
     <Compile Include="ver2\testing12.aspx.designer.cs">
       <DependentUpon>testing12.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ver2\twilio\MakeOutboundCall.aspx.cs">
+      <DependentUpon>MakeOutboundCall.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ver2\twilio\MakeOutboundCall.aspx.designer.cs">
+      <DependentUpon>MakeOutboundCall.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ver2\UnderstandSpokenSentance.ashx.cs">
+      <DependentUpon>UnderstandSpokenSentance.ashx</DependentUpon>
+    </Compile>
     <Compile Include="ver2\UserIdentityTAB.cs">
-      <DependentUpon>EFLocalDBModelFeb29.tt</DependentUpon>
+      <DependentUpon>EFLocalDBModelJan29.tt</DependentUpon>
     </Compile>
     <Compile Include="ver2\ViewCoachingSessionByClass.aspx.cs">
       <DependentUpon>ViewCoachingSessionByClass.aspx</DependentUpon>
@@ -375,6 +435,7 @@
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

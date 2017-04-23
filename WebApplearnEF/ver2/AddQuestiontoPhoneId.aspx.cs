@@ -81,7 +81,14 @@ namespace WebApplearnEF.ver2
                                       select a;
                 PhoneCoachingPlanListofSessionsTAB mycoachingsession = coachingsession.FirstOrDefault();
                 string listofquestions =  mycoachingsession.ListofQuestionsXML;
-                listofquestions = listofquestions + "," + QuestionID;
+
+                if(listofquestions.Length > 0 )
+                    listofquestions = listofquestions + "," + QuestionID;
+                else
+                    listofquestions =  QuestionID.ToString() ;
+
+
+
                 mycoachingsession.ListofQuestionsXML = listofquestions;
 
                 context.Entry(mycoachingsession).State = System.Data.Entity.EntityState.Modified;
