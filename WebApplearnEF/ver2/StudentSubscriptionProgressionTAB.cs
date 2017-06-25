@@ -14,12 +14,12 @@ namespace WebApplearnEF.ver2
     
     public partial class StudentSubscriptionProgressionTAB
     {
-        public Nullable<long> StudentRollNo { get; set; }
+        public long StudentRollNo { get; set; }
         public Nullable<int> ClassStd { get; set; }
         public string Lang { get; set; }
         public string Board { get; set; }
         public string Subject { get; set; }
         public Nullable<int> CurrentPhCoachSessionNo { get; set; }
-        public long UniqueRowDummy { get; set; }
+        public Nullable<long> CurrentPhCoachSNoCurrentQuestionNo { get; set; }
     }
 }

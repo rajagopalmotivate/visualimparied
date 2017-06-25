@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+	<meta charset="utf-8" />
+
+</head>
+<body>
+
+    Input a audio file or Record a audio file
+
+    <input type="file" accept="audio/*" capture="microphone" id="recorder">
+    <br />
+    <audio id="player" controls></audio>
+
+    <script>
+  var recorder = document.getElementById('recorder');
+  var player = document.getElementById('player');
+
+  recorder.addEventListener('change', function(e) {
+    var file = e.target.files[0];
+    // Do something with the audio file.
+    player.src =  URL.createObjectURL(file);
+  });
+    </script>
+
+</body>
+</html>

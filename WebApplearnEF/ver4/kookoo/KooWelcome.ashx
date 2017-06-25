@@ -46,34 +46,25 @@ public class JHandler : IHttpHandler
         long callerphoneno =  long.Parse ((string) context.Request.QueryString["cid"]);
         callerphoneno = UtilitiesClasses.getPhonenumbersinConsistentFormat(callerphoneno);
         sessionid = (string) context.Request.QueryString["sid"];
-        string circle = (string) context.Request.QueryString["circle"];
         string kookooevent = (string) context.Request.QueryString["event"];
         string finalanswer = "";
 
         if (kookooevent.Contains("NewCall"))
         {
-            //check if many phone nos are associated with the phone
-
             mystudent = StudentStatus.getStudentbyAssociatedPhoneNo(callerphoneno);
-            if (mystudent == null) finalanswer = optintobeCoachedTEL("Welcome", circle);
+            if (mystudent == null) finalanswer = optintobeCoachedTEL("Welcome");
             else
             {
-                if(( mystudent.Lang !=null  ) && ( mystudent.ClassStd >= 1 )&& ( mystudent.Board !=null ) )
-                    finalanswer = welcomeRegisteredSudentTELProccedQuizzing(mystudent.StudentRollNo, mystudent.Lang);
-                else
-                {
-
-                }
+                finalanswer = welcomeRegisteredSudentTEL(mystudent.StudentRollNo);
             }
         }
 
         if (kookooevent.Contains("GotDTMF"))
         {
             string dtmfnumberpressed = (string)context.Request.QueryString["data"];
-            finalanswer = optintobeCoachedTEL("Welcome", "");
+            finalanswer = optintobeCoachedTEL("Welcome");
             if (dtmfnumberpressed.Contains("1")) finalanswer = addNewUsertoDB("REGISTER");
             if (dtmfnumberpressed.Contains("0")) finalanswer = playsorrytext();
-            if (dtmfnumberpressed.Contains("9")) finalanswer = askstudentforrollno(); ///find out what is the students Roll No
             //   if (dtmfnumberpressed.Contains("2")) finalanswer = addNewUsertoDB("TRY IT");            
         }
 
@@ -83,18 +74,13 @@ public class JHandler : IHttpHandler
     }
 
 
-    private string optintobeCoachedTEL(string questiontotheuser, string circle)
+    private string optintobeCoachedTEL(string questiontotheuser)
     {
-
         string answerxml = $@"
 <Response sid='{sessionid}' > 
-    <playtext>Welcome to Mitra jyothi Audio Classes. </playtext>
-    <playtext>You need just a telephone to avail this phone based coaching.</playtext>
-    <playtext>Everyone can study.</playtext>
-    <playtext>Do you want to register for free coaching? </playtext>
+ <playaudio>{getAudioURL("WELCOME", 1)}</playaudio>     
     <collectdtmf l='1' >     
-        <playtext>Press 1 for yes. Press 0 for no.</playtext>   
-        <playtext>Incase you already have registered before, but calling from a new phone number, Press 9 </playtext>                                   
+        <playtext>{getAudioURL("PRESSAINPUT", 2)}</playtext>                   
     </collectdtmf>
     <playtext>No response received so far</playtext>
  
@@ -102,7 +88,24 @@ public class JHandler : IHttpHandler
         return answerxml;
     }
 
+    private string getAudioURL(string webpage, int audioid )
+    {
+        /*
+       <playtext>Welcome to Mitra jyothi Audio Classes. </playtext>
+       <playtext>You need just a telephone to avail this phone based coaching.</playtext>
+       <playtext>Everyone can study.</playtext>
+       <playtext>Do you want to register for free coaching? </playtext>*/
 
+        string WelcomeURLEN = "http://../Welcome.wav";
+        string PressaInputEN = "http://../Press.wav"; 
+
+        string WelcomeURLTN = "http://../TN/Welcome.wav";
+        string PressaInputTN = "http://../TN/Press.wav"; 
+
+      //  if(  )
+      //  if( webpage.Contains("WELCOME") )
+
+    }
 
     private string optintobeCoachedTELold(string questiontotheuser)
     {
@@ -130,14 +133,13 @@ public class JHandler : IHttpHandler
 
 
 
-    private string welcomeRegisteredSudentTELProccedQuizzing(long rollno, string lang)
+    private string welcomeRegisteredSudentTEL(long rollno)
     {
-        //TODO: Based on student's lang, play the below in the prefered lang
         string answerxml = $@"
         <Response sid='{sessionid}' > 
             <playtext>Welcome again to Mitra jyothi Audio Classes.  Welcome back. Your roll number is {rollno}</playtext>
-            <playtext>Shall we start coaching you now   </playtext>
-            <gotourl>{StudentStatus.baseURL}JustCalledStartQuizzing.ashx?rollno={rollno}&amp;lang={lang}</gotourl>    
+            <playtext>Shall we continue with the lesson   </playtext>
+            <gotourl>{StudentStatus.baseURL}askaquestion.ashx?QuestionNo=2</gotourl>    
         </Response>";
         return answerxml;
     }
@@ -161,16 +163,6 @@ public class JHandler : IHttpHandler
         <Response sid='{sessionid}' > 
             <playtext>You pressed 0. We are sorry to hear. We understand your situation. Please do call us any time back. Wish you a wonderful year ahead </playtext>
          <hangup></hangup>    
-        </Response>";
-        return answerxml;
-    }
-
-    private string askstudentforrollno()
-    {
-        string answerxml = $@"
-        <Response sid='{sessionid}' > 
-            <playtext>You pressed 9. Good to know you are already registered student with a roll number, but calling from a new phone</playtext>
-            <gotourl>{StudentStatus.baseURL}asksrollnobutdifferentph.ashx</gotourl>    
         </Response>";
         return answerxml;
     }

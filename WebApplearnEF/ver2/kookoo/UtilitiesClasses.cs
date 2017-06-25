@@ -15,8 +15,9 @@ namespace WebApplearnEF.ver2.kookoo
 
             string callerPhoneNostring = callerPhoneNo.ToString();
             int countofcellnowith91 = "919513376285".Length;
-                                     
-            if( callerPhoneNostring.Length == countofcellnowith91)
+            int landlineexample =       "8022585452".Length;
+
+            if ( callerPhoneNostring.Length == countofcellnowith91)
             {//remove 91
                 ans = callerPhoneNo - 910000000000; 
             }

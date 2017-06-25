@@ -72,19 +72,17 @@ warning 6013: The table/view 'learnthinksavedb.dbo.QuestionPaperTAB' does not ha
           <Property Name="SequenceNo" Type="int" />
           <Property Name="LinktoQuestionorLecture" Type="int" />
         </EntityType>-->
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'learnthinksavedb.dbo.StudentSubscriptionProgressionTAB' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="StudentSubscriptionProgressionTAB">
           <Key>
-            <PropertyRef Name="UniqueRowDummy" />
+            <PropertyRef Name="StudentRollNo" />
           </Key>
-          <Property Name="StudentRollNo" Type="bigint" />
+          <Property Name="StudentRollNo" Type="bigint" Nullable="false" />
           <Property Name="ClassStd" Type="int" />
           <Property Name="Lang" Type="nvarchar" MaxLength="6" />
           <Property Name="Board" Type="nvarchar" MaxLength="10" />
           <Property Name="Subject" Type="nvarchar" MaxLength="10" />
           <Property Name="CurrentPhCoachSessionNo" Type="int" />
-          <Property Name="UniqueRowDummy" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CurrentPhCoachSNoCurrentQuestionNo" Type="bigint" />
         </EntityType>
         <EntityType Name="StudentTAB">
           <Key>
@@ -135,6 +133,7 @@ warning 6013: The table/view 'learnthinksavedb.dbo.testing' does not have a prim
           <EntitySet Name="AudioURLTrascribedStringTAB" EntityType="Self.AudioURLTrascribedStringTAB" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ListofQuestionsWithDetailsofEachQuestionTAB" EntityType="Self.ListofQuestionsWithDetailsofEachQuestionTAB" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PhoneCoachingPlanListofSessionsTAB" EntityType="Self.PhoneCoachingPlanListofSessionsTAB" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StudentSubscriptionProgressionTAB" EntityType="Self.StudentSubscriptionProgressionTAB" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StudentTAB" EntityType="Self.StudentTAB" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Table_Test" EntityType="Self.Table_Test" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserIdentityTAB" EntityType="Self.UserIdentityTAB" Schema="dbo" store:Type="Tables" />
@@ -147,17 +146,6 @@ warning 6013: The table/view 'learnthinksavedb.dbo.testing' does not have a prim
     [ListofQuestionPapersTAB].[Subject] AS [Subject], 
     [ListofQuestionPapersTAB].[Lang] AS [Lang]
     FROM [dbo].[ListofQuestionPapersTAB] AS [ListofQuestionPapersTAB]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="StudentSubscriptionProgressionTAB" EntityType="Self.StudentSubscriptionProgressionTAB" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [StudentSubscriptionProgressionTAB].[StudentRollNo] AS [StudentRollNo], 
-    [StudentSubscriptionProgressionTAB].[ClassStd] AS [ClassStd], 
-    [StudentSubscriptionProgressionTAB].[Lang] AS [Lang], 
-    [StudentSubscriptionProgressionTAB].[Board] AS [Board], 
-    [StudentSubscriptionProgressionTAB].[Subject] AS [Subject], 
-    [StudentSubscriptionProgressionTAB].[CurrentPhCoachSessionNo] AS [CurrentPhCoachSessionNo], 
-    [StudentSubscriptionProgressionTAB].[UniqueRowDummy] AS [UniqueRowDummy]
-    FROM [dbo].[StudentSubscriptionProgressionTAB] AS [StudentSubscriptionProgressionTAB]</DefiningQuery>
           </EntitySet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -273,15 +261,15 @@ warning 6013: The table/view 'learnthinksavedb.dbo.testing' does not have a prim
         </EntityType>
         <EntityType Name="StudentSubscriptionProgressionTAB">
           <Key>
-            <PropertyRef Name="UniqueRowDummy" />
+            <PropertyRef Name="StudentRollNo" />
           </Key>
-          <Property Name="StudentRollNo" Type="Int64" />
+          <Property Name="StudentRollNo" Type="Int64" Nullable="false" />
           <Property Name="ClassStd" Type="Int32" />
           <Property Name="Lang" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
           <Property Name="Board" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="Subject" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="CurrentPhCoachSessionNo" Type="Int32" />
-          <Property Name="UniqueRowDummy" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CurrentPhCoachSNoCurrentQuestionNo" Type="Int64" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -396,7 +384,7 @@ warning 6013: The table/view 'learnthinksavedb.dbo.testing' does not have a prim
           <EntitySetMapping Name="StudentSubscriptionProgressionTAB">
             <EntityTypeMapping TypeName="EFlearnthinksavedbModel29Jan2017.StudentSubscriptionProgressionTAB">
               <MappingFragment StoreEntitySet="StudentSubscriptionProgressionTAB">
-                <ScalarProperty Name="UniqueRowDummy" ColumnName="UniqueRowDummy" />
+                <ScalarProperty Name="CurrentPhCoachSNoCurrentQuestionNo" ColumnName="CurrentPhCoachSNoCurrentQuestionNo" />
                 <ScalarProperty Name="CurrentPhCoachSessionNo" ColumnName="CurrentPhCoachSessionNo" />
                 <ScalarProperty Name="Subject" ColumnName="Subject" />
                 <ScalarProperty Name="Board" ColumnName="Board" />

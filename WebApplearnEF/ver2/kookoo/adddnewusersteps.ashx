@@ -163,7 +163,7 @@ public class JHandler : IHttpHandler
     <playtext>I understand you are in studying in standard </playtext> 
     <say-as  format='501' lang='EN'>{dtfmdata}</say-as>
     <playtext>Is it correct?</playtext>
-    <recognize type='indybol' timeout='3' silence='1' lang='en' grammar='yesno' />
+    <recognize type='indybol' timeout='3' silence='4' lang='en' grammar='yesno' />
 </Response>";
         return answerxml;
     }
@@ -205,6 +205,9 @@ public class JHandler : IHttpHandler
         string answerxml = $@"
 <Response sid='{sessionid}' > 
     <playtext>Thank you, I noted down your standard in the database. </playtext> 
+    <playtext>You can call this phone number daily to learn and practice </playtext> 
+    <playtext>You can call us anytime even now, Let me take leave of you now. Good day</playtext> 
+    <hangup></hangup>    
 </Response>";
         return answerxml;
     }

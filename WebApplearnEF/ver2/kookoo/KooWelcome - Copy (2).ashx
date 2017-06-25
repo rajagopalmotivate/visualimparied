@@ -46,67 +46,55 @@ public class JHandler : IHttpHandler
         long callerphoneno =  long.Parse ((string) context.Request.QueryString["cid"]);
         callerphoneno = UtilitiesClasses.getPhonenumbersinConsistentFormat(callerphoneno);
         sessionid = (string) context.Request.QueryString["sid"];
-        string circle = (string) context.Request.QueryString["circle"];
         string kookooevent = (string) context.Request.QueryString["event"];
         string finalanswer = "";
 
         if (kookooevent.Contains("NewCall"))
         {
-            //check if many phone nos are associated with the phone
-
             mystudent = StudentStatus.getStudentbyAssociatedPhoneNo(callerphoneno);
-            if (mystudent == null) finalanswer = optintobeCoachedTEL("Welcome", circle);
+            if (mystudent == null) finalanswer = optintobeCoachedTEL("Welcome");
             else
             {
-                if(( mystudent.Lang !=null  ) && ( mystudent.ClassStd >= 1 )&& ( mystudent.Board !=null ) )
-                    finalanswer = welcomeRegisteredSudentTELProccedQuizzing(mystudent.StudentRollNo, mystudent.Lang);
-                else
-                {
-
-                }
+                finalanswer = welcomeRegisteredSudentTEL(mystudent.StudentRollNo);
             }
         }
 
         if (kookooevent.Contains("GotDTMF"))
         {
             string dtmfnumberpressed = (string)context.Request.QueryString["data"];
-            finalanswer = optintobeCoachedTEL("Welcome", "");
+            finalanswer = optintobeCoachedTEL("Welcome");
             if (dtmfnumberpressed.Contains("1")) finalanswer = addNewUsertoDB("REGISTER");
             if (dtmfnumberpressed.Contains("0")) finalanswer = playsorrytext();
-            if (dtmfnumberpressed.Contains("9")) finalanswer = askstudentforrollno(); ///find out what is the students Roll No
             //   if (dtmfnumberpressed.Contains("2")) finalanswer = addNewUsertoDB("TRY IT");            
         }
-
-        XmlDocument doc = new XmlDocument();
-        doc.LoadXml(finalanswer);
+    
+    XmlDocument doc = new XmlDocument();
+    doc.LoadXml(finalanswer);
         return doc;
     }
 
 
-    private string optintobeCoachedTEL(string questiontotheuser, string circle)
-    {
-
-        string answerxml = $@"
+private string optintobeCoachedTEL(string questiontotheuser)
+{
+    string answerxml = $@"
 <Response sid='{sessionid}' > 
     <playtext>Welcome to Mitra jyothi Audio Classes. </playtext>
     <playtext>You need just a telephone to avail this phone based coaching.</playtext>
     <playtext>Everyone can study.</playtext>
     <playtext>Do you want to register for free coaching? </playtext>
     <collectdtmf l='1' >     
-        <playtext>Press 1 for yes. Press 0 for no.</playtext>   
-        <playtext>Incase you already have registered before, but calling from a new phone number, Press 9 </playtext>                                   
+        <playtext>Press 1 for yes. Press 0 for no.</playtext>                   
     </collectdtmf>
     <playtext>No response received so far</playtext>
  
 </Response>";
-        return answerxml;
-    }
+    return answerxml;
+}
 
 
-
-    private string optintobeCoachedTELold(string questiontotheuser)
-    {
-        string answerxml = $@"
+private string optintobeCoachedTELold(string questiontotheuser)
+{
+    string answerxml = $@"
 <Response sid='{sessionid}' > 
     <playtext>Welcome to Mitra jyothi Audio Classes. </playtext>
     <playtext>You need just a telephone to avail this phone based coaching.</playtext>
@@ -124,85 +112,74 @@ public class JHandler : IHttpHandler
         <playtext>Sorry no response. Please call us back. Wish you happy days ahead. Thank you for calling us.</playtext>                   
     <hangup></hangup>    
 </Response>";
-        return answerxml;
-    }
+    return answerxml;
+}
 
 
 
 
-    private string welcomeRegisteredSudentTELProccedQuizzing(long rollno, string lang)
-    {
-        //TODO: Based on student's lang, play the below in the prefered lang
-        string answerxml = $@"
+private string welcomeRegisteredSudentTEL(long rollno)
+{
+    string answerxml = $@"
         <Response sid='{sessionid}' > 
             <playtext>Welcome again to Mitra jyothi Audio Classes.  Welcome back. Your roll number is {rollno}</playtext>
-            <playtext>Shall we start coaching you now   </playtext>
-            <gotourl>{StudentStatus.baseURL}JustCalledStartQuizzing.ashx?rollno={rollno}&amp;lang={lang}</gotourl>    
+            <playtext>Shall we continue with the lesson   </playtext>
+            <gotourl>{StudentStatus.baseURL}askaquestion.ashx</gotourl>    
         </Response>";
-        return answerxml;
-    }
+    return answerxml;
+}
 
 
 
-    private string addNewUsertoDB(string optin)
-    {
-        string answerxml = $@"
+private string addNewUsertoDB(string optin)
+{
+    string answerxml = $@"
         <Response sid='{sessionid}' > 
             <playtext>We are happy for you. Thanks for choosing to {optin} </playtext>
             <playtext>Give us a few seconds to register you into the system database.</playtext>
              <gotourl>{StudentStatus.baseURL}adddnewuser.ashx?mode={optin}</gotourl>    
         </Response>";
-        return answerxml;
-    }
+    return answerxml;
+}
 
-    private string playsorrytext()
-    {
-        string answerxml = $@"
+private string playsorrytext()
+{
+    string answerxml = $@"
         <Response sid='{sessionid}' > 
             <playtext>You pressed 0. We are sorry to hear. We understand your situation. Please do call us any time back. Wish you a wonderful year ahead </playtext>
          <hangup></hangup>    
         </Response>";
-        return answerxml;
-    }
+    return answerxml;
+}
 
-    private string askstudentforrollno()
-    {
-        string answerxml = $@"
-        <Response sid='{sessionid}' > 
-            <playtext>You pressed 9. Good to know you are already registered student with a roll number, but calling from a new phone</playtext>
-            <gotourl>{StudentStatus.baseURL}asksrollnobutdifferentph.ashx</gotourl>    
-        </Response>";
-        return answerxml;
-    }
-
-    private string nodtmfresponse()
-    {
-        string answerxml = @"
+private string nodtmfresponse()
+{
+    string answerxml = @"
 <Response filler='yes'> 
     <playtext quality='best'>Sorry, we need to record again</playtext>  
 </Response>";
 
-        return answerxml;
-    }
+    return answerxml;
+}
 
-    private string dtmftimeresponse(string recordedurl, string callerid)
-    {
-        string answerxml = @"
+private string dtmftimeresponse(string recordedurl, string callerid)
+{
+    string answerxml = @"
 <Response> 
     <playtext>How are you </playtext>"+
-    "<playaudio>"+ recordedurl + "</playaudio>"   +
-    "<playtext>thank you </playtext>"+
-    "<hangup></hangup>"+
-    "</Response>";
+"<playaudio>"+ recordedurl + "</playaudio>"   +
+"<playtext>thank you </playtext>"+
+"<hangup></hangup>"+
+"</Response>";
 
-        return answerxml;
-    }
+    return answerxml;
+}
 
-    public bool IsReusable
-    {
-        get {
-            return false;
-        }
+public bool IsReusable
+{
+    get {
+        return false;
     }
+}
 
 }
