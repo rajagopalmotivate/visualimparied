@@ -40,18 +40,29 @@ public class JHandler : IHttpHandler
 
     StudentTAB mystudent;
     string sessionid;
+    long rollno;
+    string lang;
+    string subject;
+    string CoachingSession;
+    string QuestionId;
+    string StudentClassStd;
+
 
     private XmlDocument GetXmlToShow(HttpContext context)
     {
-        long callerphoneno =  long.Parse ((string) context.Request.QueryString["cid"]);
-        callerphoneno = UtilitiesClasses.getPhonenumbersinConsistentFormat(callerphoneno);
-        sessionid = (string) context.Request.QueryString["sid"];
         string kookooevent = (string) context.Request.QueryString["event"];
-        string QuestionNo = (string) context.Request.QueryString["QuestionNo"];
+        rollno = long.Parse( (string) context.Request.QueryString["rollno"]);
+        lang = (string) context.Request.QueryString["lang"];
+        subject = (string) context.Request.QueryString["subject"];
+        CoachingSession = (string) context.Request.QueryString["CoachingSession"];
+        QuestionId = (string) context.Request.QueryString["QuestionId"];
+        StudentClassStd  = (string) context.Request.QueryString["std"];
+
+
 
         string finalanswer = "";
 
-        updateStudentLastCompletedQuestion(callerphoneno, QuestionNo);
+        updateStudentLastCompletedQuestion(rollno, lang, subject, StudentClassStd ,  CoachingSession, QuestionId );
         finalanswer = getScore();
 
 
@@ -63,20 +74,48 @@ public class JHandler : IHttpHandler
     public string getScore()
     {
         string xmlresponse = "";
-
+        // Reward for completed 3 or 4 questions today. Track questions completed in a phone call
         xmlresponse = $@"
         <Response sid='{sessionid}' > 
-            <playtext> Good, You completed this Question </playtext>
-            <gotourl>{StudentStatus.baseURL}startorContinueQuiz.ashx</gotourl>    
+            <playtext> { Motivational.getAlternatives("You have made good progress, You completed this Question")}  </playtext>
+            <gotourl>{StudentStatus.baseURL}ContinueQuiz.ashx?rollno={rollno}&amp;lang={lang}&amp;subject={subject}</gotourl>       
         </Response>";
 
         return xmlresponse;
     }
 
 
-    private void updateStudentLastCompletedQuestion(long callerphoneno, string completedquestion)
+    private void updateStudentLastCompletedQuestion(long rollno, string lang, string subject, string std,  string CoachingSession, string QuestionId )
     {
+        StudentSubscriptionProgressionTAB studentprogress = StudentStatus.getStudentProgression(rollno);
+        if( studentprogress == null )
+        {
+            //insert new row
+            using (var context = new learnthinksavedbEntities29Jan2016())
+            {
+                StudentSubscriptionProgressionTAB mystudentsprogress = new StudentSubscriptionProgressionTAB();
+                mystudentsprogress.StudentRollNo = rollno;
+                mystudentsprogress.Lang = lang;
+                mystudentsprogress.ClassStd = int.Parse(std);
+                mystudentsprogress.Subject = subject;
+                mystudentsprogress.CurrentPhCoachSessionNo = int.Parse(CoachingSession);
+                mystudentsprogress.CurrentPhCoachSNoCurrentQuestionNo = long.Parse(QuestionId);
+                StudentSubscriptionProgressionTAB studentprogressinseredrow = context.StudentSubscriptionProgressionTAB.Add(mystudentsprogress);
+                context.SaveChanges();
+            }
 
+        }
+        else
+        {
+            //update row
+            using (var context = new learnthinksavedbEntities29Jan2016())
+            {
+                studentprogress.CurrentPhCoachSessionNo = int.Parse(CoachingSession);
+                studentprogress.CurrentPhCoachSNoCurrentQuestionNo = long.Parse(QuestionId);
+                context.Entry(studentprogress).State = System.Data.Entity.EntityState.Modified;
+                int issuccesssavingrecord = context.SaveChanges();
+            }
+        }
     }
 
     public bool IsReusable

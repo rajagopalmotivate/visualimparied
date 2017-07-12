@@ -40,15 +40,12 @@ public class JHandler : IHttpHandler
 
     StudentTAB mystudent;
     string sessionid;
-    string lang;
 
     private XmlDocument GetXmlToShow(HttpContext context)
     {
         string callerphoneno =  (string) context.Request.QueryString["cid_e164"];
         sessionid = (string) context.Request.QueryString["sid"];
         string kookooevent = (string) context.Request.QueryString["event"];
-        lang = (string) context.Request.QueryString["lang"];
-
         string finalanswer = "";
 
         long rollno = addNewUsertoDB(context);
@@ -105,7 +102,7 @@ public class JHandler : IHttpHandler
     <playtext>Your roll number is </playtext><playtext>{rollno} </playtext>     
     <playtext>Please note down your roll numbers</playtext> 
     <playtext>Again, Your roll number is </playtext> <say-as  format='501' lang='EN'>{rollno}</say-as>
-    <gotourl>{StudentStatus.baseURL}adddnewusersteps.ashx?step=GETLANG&amp;rollno={rollno}&amp;lang={lang}</gotourl>
+    <gotourl>{StudentStatus.baseURL}adddnewusersteps.ashx?step=GETLANG</gotourl>
 </Response>";
         return answerxml;
     }

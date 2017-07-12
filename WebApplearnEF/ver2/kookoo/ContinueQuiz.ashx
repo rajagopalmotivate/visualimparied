@@ -52,6 +52,9 @@ public class JHandler : IHttpHandler
     int StudentClassStd = -1;
     string StudentBoard = "CBSE";
     string StudentLangMedium = "EN-IN";
+    string lang;
+    string subject;
+
 
     private XmlDocument GetXmlToShow(HttpContext context)
     {
@@ -60,6 +63,9 @@ public class JHandler : IHttpHandler
         sessionid = (string) context.Request.QueryString["sid"];
         string kookooevent = (string) context.Request.QueryString["event"];
         rollno = long.Parse( (string) context.Request.QueryString["rollno"]);
+        lang = (string) context.Request.QueryString["lang"];
+        subject = (string) context.Request.QueryString["subject"];
+
 
         string finalanswer = "";
 
@@ -67,7 +73,11 @@ public class JHandler : IHttpHandler
         if (mystudent == null) redirecttoUngresiteredStudent();
         if (!(mystudent.ClassStd >= 1)) redirecttocompleteStudentRegistration(rollno);
 
-        getLastCompletedPhoneCoachingSessionQuestion(rollno);
+
+        StudentClassStd = (int) mystudent.ClassStd;
+
+        //  getLastCompletedPhoneCoachingSessionQuestion(rollno);
+        getLastCompletedPhoneCoachingSessionQuestion(rollno, StudentClassStd, lang, subject);
 
         bool isCompletedAllphonecoachingClassFortheYear = false;
         try {
@@ -97,8 +107,8 @@ public class JHandler : IHttpHandler
 
         xmlresponse = $@"
         <Response sid='{sessionid}' > 
-            <playtext> Good, You completed this Question </playtext>
-            <gotourl>{StudentStatus.baseURL}NextQuestion.ashx?rollno={rollno}&amp;subject={lastcompletedsubject}&amp;CoachingSession={nextphonecoachingsession}&amp;QuestionId={nextquestion}</gotourl>    
+            <playtext> Ready? You are now in coaching session number {nextphonecoachingsession} </playtext>
+            <gotourl>{StudentStatus.baseURL}NextQuestion.ashx?rollno={rollno}&amp;lang={lang}&amp;subject={lastcompletedsubject}&amp;std={StudentClassStd}&amp;CoachingSession={nextphonecoachingsession}&amp;QuestionId={nextquestion}</gotourl>    
         </Response>";
 
         return xmlresponse;
@@ -157,6 +167,26 @@ public class JHandler : IHttpHandler
         return true;
     }
 
+    private bool getLastCompletedPhoneCoachingSessionQuestion(long rollno, int classstandard,  string lang, string subject)
+    {
+        StudentSubscriptionProgressionTAB mystudentprogress = StudentStatus.getStudentProgression(rollno, lang, subject, classstandard);
+        if(mystudentprogress == null)
+        {
+            lastcompletedphonecoachingsession = 1;
+            lastcompletedsubject = "MATH";
+        }
+        else
+        {
+            lastcompletedphonecoachingsession = (int) mystudentprogress.CurrentPhCoachSessionNo;
+
+            lastcompletedquestion =  (int) mystudentprogress.CurrentPhCoachSNoCurrentQuestionNo;
+
+            lastcompletedsubject = (string)mystudentprogress.Subject;
+        }
+
+        return true;
+    }
+
     private ArrayList getlistofquestionsinACoachingSession(int phonecoachingsession)
     {
         string XMLListofQuestions = "";
@@ -178,9 +208,9 @@ public class JHandler : IHttpHandler
     private void getNextCoachingNoandQuestionNo(long rollno)
     {
         //Test data 
-    //    lastcompletedphonecoachingsession = 4   ;
-    //    lastcompletedquestion = 6  ;
-          
+        //    lastcompletedphonecoachingsession = 4   ;
+        //    lastcompletedquestion = 6  ;
+
 
         nextquestion = -1;
         nextphonecoachingsession = -1;
@@ -289,11 +319,13 @@ public class JHandler : IHttpHandler
 
     public string VeryBIGCongratsForCompletingCourse()
     {
+        // Student has completed all the subject.  Need a way to register for the next class.
         string xmlresponse = "";
 
         xmlresponse = $@"
         <Response sid='{sessionid}' > 
-            <playtext> Very Hearty CONGRATULATIONS. YOU HAVE COMPLETED ALL THE PHONE COACHING SESSIONS. </playtext>
+            <playtext> Very Hearty CONGRATULATIONS. YOU HAVE COMPLETED ALL THE PHONE COACHING SESSIONS in this subject. </playtext>
+            <playtext> You have made fanastic progress in this subject. If you wish to learn for the next subject, please dail again.  Thank you.  Good bye</playtext>
             <hangup></hangup>
         </Response>";
 

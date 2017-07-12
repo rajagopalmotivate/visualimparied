@@ -73,6 +73,20 @@ namespace WebApplearnEF.ver2.kookoo
             return mystudentprogression;
         }
 
+        public static StudentSubscriptionProgressionTAB getStudentProgression(long studentRollno, string lang , string subject, int classStandard) 
+        {
+            StudentSubscriptionProgressionTAB mystudentprogression;
+
+            using (var context = new learnthinksavedbEntities29Jan2016())
+            {
+                var querytogetastudentrecord = from astudent in context.StudentSubscriptionProgressionTAB
+                                               where ((astudent.StudentRollNo == studentRollno) && ( astudent.Lang == lang ) && ( astudent.Subject == subject ) && (astudent.ClassStd == classStandard) )
+                                               select astudent;
+
+                mystudentprogression = querytogetastudentrecord.FirstOrDefault();
+            }
+            return mystudentprogression;
+        }
 
 
         public static ListofQuestionsWithDetailsofEachQuestionTAB getQuestionDetails(long QuestionNO)

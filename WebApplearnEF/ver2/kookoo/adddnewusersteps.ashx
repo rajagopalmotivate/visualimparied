@@ -42,6 +42,8 @@ public class JHandler : IHttpHandler
 
     StudentTAB mystudent;
     string sessionid;
+    long rollno;
+    string lang; 
 
     private XmlDocument GetXmlToShow(HttpContext context)
     {
@@ -49,6 +51,8 @@ public class JHandler : IHttpHandler
         sessionid = (string) context.Request.QueryString["sid"];
         string kookooevent = (string) context.Request.QueryString["event"];
         string internaltrackurl = (string) context.Request.QueryString["step"];
+        rollno = long.Parse( (string) context.Request.QueryString["rollno"]);
+        lang = (string) context.Request.QueryString["lang"];
 
 
         string finalanswer = "";
@@ -145,7 +149,8 @@ public class JHandler : IHttpHandler
         string answerxml = $@"
 <Response sid='{sessionid}' > 
     <playtext>Thank you</playtext>  
-    <gotourl>{StudentStatus.baseURL}adddnewusersteps.ashx?step=CONFIRMLANG&amp;UserEnteredData={dtfmdata}</gotourl>
+    <gotourl>{StudentStatus.baseURL}confirmanswerclass
+?UserEnteredData={dtfmdata}</gotourl>
 </Response>";
         return answerxml;
     }
@@ -153,19 +158,12 @@ public class JHandler : IHttpHandler
 
     private string confirmuserinput(string dtfmdata)
     {
-        string answerxml = $@"
-<Response sid='{sessionid}' > 
-    <playtext>Good</playtext>  
-    <playtext>The coach will ask you speak up now</playtext>  
-     <playtext>Here are some tips for effective communication with coach</playtext> 
-    <playtext> Be silent after saying YES or NO </playtext>  
-    <playtext>After the beep, Please say YES or NO. </playtext> 
-    <playtext>I understand you are in studying in standard </playtext> 
-    <say-as  format='501' lang='EN'>{dtfmdata}</say-as>
-    <playtext>Is it correct?</playtext>
-    <recognize type='indybol' timeout='3' silence='4' lang='en' grammar='yesno' />
-</Response>";
-        return answerxml;
+        string xmlresponse = $@"
+        <Response sid='{sessionid}' > 
+            <playtext> You entered  {dtfmdata} </playtext>
+            <gotourl>{StudentStatus.baseURL}confirmanswerclass.ashx?rollno={rollno}&amp;lang={lang}&amp;std={dtfmdata}</gotourl>    
+        </Response>";
+        return xmlresponse;
     }
 
 

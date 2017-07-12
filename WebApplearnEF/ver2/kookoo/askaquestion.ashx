@@ -37,31 +37,42 @@ public class JHandler : IHttpHandler
 
     }
 
-
+    long rollno;
     StudentTAB mystudent;
     string sessionid;
+    string lang;
+    string subject;
+    string CoachingSession;
+    string QuestionId;
+    string StudentClassStd;
+
 
     private XmlDocument GetXmlToShow(HttpContext context)
     {
-        long callerphoneno =  long.Parse ((string) context.Request.QueryString["cid"]);
-        callerphoneno = UtilitiesClasses.getPhonenumbersinConsistentFormat(callerphoneno);
-        sessionid = (string) context.Request.QueryString["sid"];
         string kookooevent = (string) context.Request.QueryString["event"];
-        string QuestionNo = (string) context.Request.QueryString["QuestionNo"];
+        //   string QuestionNo = (string) context.Request.QueryString["QuestionNo"];
+        rollno = long.Parse( (string) context.Request.QueryString["rollno"]);
+        lang = (string) context.Request.QueryString["lang"];
+        subject = (string) context.Request.QueryString["subject"];
+        CoachingSession = (string) context.Request.QueryString["CoachingSession"];
+        QuestionId = (string) context.Request.QueryString["QuestionId"];
+        StudentClassStd  = (string) context.Request.QueryString["std"];
+
+
 
         string finalanswer = "";
 
         if (string.IsNullOrEmpty(kookooevent))
         {
-            finalanswer = askthequestion(QuestionNo);
+            finalanswer = askthequestion(QuestionId);
         }
         else if (kookooevent.Equals("GotDTMF"))
         {
             string studentsAnswerChoice = (string)context.Request.QueryString["data"];
             if (string.IsNullOrEmpty(studentsAnswerChoice))
-                finalanswer = askthequestion(QuestionNo);
+                finalanswer = askthequestion(QuestionId);
             else
-                finalanswer = checktheanswer(QuestionNo, studentsAnswerChoice);
+                finalanswer = checktheanswer(QuestionId, studentsAnswerChoice);
         }
         XmlDocument doc = new XmlDocument();
         doc.LoadXml(finalanswer);
@@ -83,7 +94,6 @@ public class JHandler : IHttpHandler
         <Response sid='{sessionid}' > 
             <playtext>Here comes your Question. </playtext>
             <playtext>{question}</playtext>
-            <playtext>Please answer now by pressing 1 or 2 or 3  </playtext>
           <collectdtmf l='1' o='15000'>     
              <playtext>Press 1 for </playtext>             
              <playtext>{option1} </playtext>                   
@@ -102,9 +112,14 @@ public class JHandler : IHttpHandler
     public string checktheanswer(string QuestionNostring, string studentsAnswerChoice )
     {
         long QuestionNo = long.Parse(QuestionNostring);
+        ListofQuestionsWithDetailsofEachQuestionTAB myquestion = StudentStatus.getQuestionDetails(QuestionNo);
+        int rightanswer = 1;
+        if (myquestion.HowManyChoicesforAnswer!=null)
+            rightanswer = (int) myquestion.HowManyChoicesforAnswer;
+
         string reply = "";
         if (studentsAnswerChoice == "1") reply = "correct answer. Very good.";
-        else  reply = "oops. The correct answer is option 1"; 
+        else  reply = "I am sorry. The correct answer is option 1";
 
         string xmlresponse = "";
 
@@ -112,7 +127,7 @@ public class JHandler : IHttpHandler
         <Response sid='{sessionid}' > 
             <playtext>Checking your answer </playtext>
             <playtext>{reply}</playtext>
-            <gotourl>{StudentStatus.baseURL}completedaQuestion.ashx?QuestionNo={QuestionNostring}</gotourl>    
+            <gotourl>{StudentStatus.baseURL}completedaQuestion.ashx?rollno={rollno}&amp;lang={lang}&amp;std={StudentClassStd}&amp;subject={subject}&amp;CoachingSession={CoachingSession}&amp;QuestionId={QuestionNostring}</gotourl>    
         </Response>";
 
         return xmlresponse;

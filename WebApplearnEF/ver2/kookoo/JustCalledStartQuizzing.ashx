@@ -40,23 +40,21 @@ public class JHandler : IHttpHandler
         long callerphoneno =  long.Parse ((string) context.Request.QueryString["cid"]);
         callerphoneno = UtilitiesClasses.getPhonenumbersinConsistentFormat(callerphoneno);
         sessionid = (string) context.Request.QueryString["sid"];
-        string circle = (string) context.Request.QueryString["circle"];
-        string kookooevent = (string) context.Request.QueryString["event"];
         rollno = long.Parse( (string) context.Request.QueryString["rollno"]);
         lang = (string) context.Request.QueryString["lang"];
-
+        
 
         string finalanswer = "";
 
-        if (kookooevent.Contains("NewCall"))
+        if ( context.Request.QueryString["event"] == null )
         {
             mystudent = StudentStatus.getStudenDetailsByRollNo(rollno);
             //TODO: MOTIVATE STUDENT 
             finalanswer = selectSubject();
         }
-
-        if (kookooevent.Contains("GotDTMF"))
+        else 
         {
+            string kookooevent = (string) context.Request.QueryString["event"];
             string dtmfnumberpressed = (string)context.Request.QueryString["data"];
             if(dtmfnumberpressed.Length == 0 )   finalanswer = selectSubjectRepeat();
             if (dtmfnumberpressed.Contains("1")) finalanswer = ContinueQuiz(1);
@@ -120,11 +118,13 @@ public class JHandler : IHttpHandler
         if (subject == 2) subjectstring = "MATH";
         if (subject == 1) subjectstring = "SCIENCE";
 
+        string langstring = UtilitiesClasses.getLanguageinStringFormat(lang);
+
         string answerxml = $@"
         <Response sid='{sessionid}' > 
-            <playtext>Welcome again to Mitra jyothi Audio Classes.  Welcome back. Your roll number is {rollno}</playtext>
+            <playtext>Your selected {subjectstring}</playtext>
             <playtext>Shall we start coaching you now   </playtext>
-            <gotourl>{StudentStatus.baseURL}ContinueQuiz.ashx?rollno={rollno}&amp;subject={subjectstring}</gotourl>    
+            <gotourl>{StudentStatus.baseURL}ContinueQuiz.ashx?rollno={rollno}&amp;lang={lang}&amp;subject={subjectstring}</gotourl>    
         </Response>";
         return answerxml;
     }

@@ -150,7 +150,7 @@ public class JHandler : IHttpHandler
         <Response sid='{sessionid}' > 
             <playtext>We are happy for you. Thanks for choosing to {optin} </playtext>
             <playtext>Give us a few seconds to register you into the system database.</playtext>
-             <gotourl>{StudentStatus.baseURL}adddnewuser.ashx?mode={optin}</gotourl>    
+             <gotourl>{StudentStatus.baseURL}adddnewuser.ashx?mode={optin}&amp;lang='EN-IN'</gotourl>    
         </Response>";
         return answerxml;
     }

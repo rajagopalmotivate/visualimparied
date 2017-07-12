@@ -8,6 +8,13 @@ namespace WebApplearnEF.ver2.kookoo
 {
     public class UtilitiesClasses
     {
+        public static string getLanguageinStringFormat(string lang)
+        {
+            string ans = "Language is NOT Defined";
+            if (lang.ToUpper().Contains("EN-IN")) ans = "English";
+            else if (lang.ToUpper().Contains("HI-IN")) ans = "Hindi";
+            return ans; 
+        }
 
         public static long getPhonenumbersinConsistentFormat(long callerPhoneNo)
         {
