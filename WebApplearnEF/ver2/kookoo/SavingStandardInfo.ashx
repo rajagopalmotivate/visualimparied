@@ -40,74 +40,78 @@ public class JHandler : IHttpHandler
 
     StudentTAB mystudent;
     string sessionid;
+    long rollno = 0;
     string lang;
+    string StudentClassStd;
+
 
     private XmlDocument GetXmlToShow(HttpContext context)
     {
         string callerphoneno =  (string) context.Request.QueryString["cid_e164"];
         sessionid = (string) context.Request.QueryString["sid"];
         string kookooevent = (string) context.Request.QueryString["event"];
+        rollno = long.Parse( (string) context.Request.QueryString["rollno"]);
         lang = (string) context.Request.QueryString["lang"];
-
+        StudentClassStd  = (string) context.Request.QueryString["std"];
         string finalanswer = "";
 
-        long rollno = addNewUsertoDB(context);
-        if (rollno != -1)
-            finalanswer = congratsonRegistering(rollno);
+        bool isupdatesuccessful = updateUsertoDBwithStdClass(rollno, StudentClassStd, "CBSE", "EN-IN");
+
+        if (isupdatesuccessful)
+            finalanswer = ConfirmationDialog();
         else
-        {
-            //sendalertoadmin(); 
-            finalanswer = tryagin();
-        }
+            finalanswer = ExceptionHandling();
+
 
         XmlDocument doc = new XmlDocument();
         doc.LoadXml(finalanswer);
         return doc;
     }
 
-    private long addNewUsertoDB(HttpContext mycontext)
+
+
+    private string ConfirmationDialog()
     {
-        long rollno = -1;
+        string answerxml = "";
+        answerxml = $@"
+<Response sid='{sessionid}' > 
+            <playtext>Congratuations. You are now registered to be coached on standard {StudentClassStd} </playtext> 
+            <playtext>Shall we start coaching you right now   </playtext>
+            <gotourl>{StudentStatus.baseURL}JustCalledStartQuizzing.ashx?rollno={rollno}&amp;lang={lang}</gotourl>    
+</Response>";
+        return answerxml;
+    }
+
+
+    private string ExceptionHandling()
+    {
+        string answerxml = "";
+        answerxml = $@"
+<Response sid='{sessionid}' > 
+            <playtext>Sorry. There is a technical glitch in this system in updating the database record with your standard.</playtext> 
+            <playtext>You can call us again . Bye for now  </playtext>
+            <hangup></hangup>
+</Response>";
+        return answerxml;
+    }
+
+    private bool updateUsertoDBwithStdClass(long rollnumber, string clsstandard, string board, string lang)
+    {
+        bool issuccess = false;
+
+        StudentTAB mystudent = StudentStatus.getStudenDetailsByRollNo (rollnumber);
+
+        if (mystudent == null) return issuccess;
         using (var context = new learnthinksavedbEntities29Jan2016())
         {
-            StudentTAB mystudent = new StudentTAB();
-            if ((string)mycontext.Request.QueryString["cid"] != null)
-            {
-                long callerphoneno = long.Parse((string)mycontext.Request.QueryString["cid"]);
-                mystudent.AssociatedPhoneNo = UtilitiesClasses.getPhonenumbersinConsistentFormat(callerphoneno);
-            }
-            if ( (string)mycontext.Request.QueryString["cid_e164"] !=null )
-                mystudent.AssociatedPhoneNoE164 = (string)mycontext.Request.QueryString["cid_e164"];
-
-            StudentTAB savedrow = context.StudentTAB.Add(mystudent);
+            mystudent.ClassStd = int.Parse(  clsstandard);
+            mystudent.Board = board;
+            mystudent.Lang = lang;
+            context.Entry(mystudent).State = System.Data.Entity.EntityState.Modified;
             context.SaveChanges();
-            rollno = savedrow.StudentRollNo;
+            issuccess = true;
         }
-
-        return rollno;
-    }
-
-    private string tryagin()
-    {
-        string answerxml = $@"
-<Response sid='{sessionid}' > 
-    <playtext>Oops. the server is unable to add due to a technical problem. Please call again</playtext>  
-</Response>";
-        return answerxml;
-    }
-
-    private string congratsonRegistering(long rollno)
-    {
-        string answerxml = $@"
-<Response sid='{sessionid}' > 
-    <playtext>Congratulations, You are registered as a student at Enability Coaching Program </playtext> 
-    <playtext>You can call this phone number anytime to talk to your coach.</playtext> 
-    <playtext>Your roll number is </playtext><playtext>{rollno} </playtext>     
-    <playtext>Please note down your roll numbers</playtext> 
-    <playtext>Again, Your roll number is </playtext> <say-as  format='501' lang='EN'>{rollno}</say-as>
-    <gotourl>{StudentStatus.baseURL}adddnewusersteps.ashx?step=GETLANG&amp;rollno={rollno}&amp;lang={lang}</gotourl>
-</Response>";
-        return answerxml;
+        return issuccess;
     }
 
 

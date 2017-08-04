@@ -8,7 +8,7 @@ namespace WebApplearnEF.ver2.kookoo
 {
     public class StudentStatus
     {
-        public static string  baseURL = @"http://webapplearnef20170624062704.azurewebsites.net/ver2/kookoo/";
+        public static string  baseURL = @"http://webapplearnef20170718064606.azurewebsites.net/ver2/kookoo/";
 
         public static StudentTAB getStudentbyAssociatedPhoneNo( long callerPhoneNo )
         {

@@ -40,21 +40,35 @@ public class JHandler : IHttpHandler
 
     StudentTAB mystudent;
     string sessionid;
+    long rollno = 0;
+    string lang;
+    string StudentClassStd;
+
 
     private XmlDocument GetXmlToShow(HttpContext context)
     {
         string callerphoneno =  (string) context.Request.QueryString["cid_e164"];
         sessionid = (string) context.Request.QueryString["sid"];
-        string kookooevent = (string) context.Request.QueryString["event"];
+
+        rollno = long.Parse( (string) context.Request.QueryString["rollno"]);
+        lang = (string) context.Request.QueryString["lang"];
+        StudentClassStd  = (string) context.Request.QueryString["std"];
+        string kookooevent = "";
+        if (context.Request.QueryString["event"] !=null)
+            kookooevent = (string) context.Request.QueryString["event"];
+
         string finalanswer = "";
 
-        long rollno = addNewUsertoDB(context);
-        if (rollno != -1)
-            finalanswer = congratsonRegistering(rollno);
-        else
+
+        finalanswer = confirmuserinputonClsStd();
+
+        if (kookooevent.Equals("GotDTMF"))
         {
-            //sendalertoadmin(); 
-            finalanswer = tryagin();
+            string userEnteredKeys = (string)context.Request.QueryString["data"];
+            if (string.IsNullOrEmpty(userEnteredKeys))
+                finalanswer = retryoncemoreDidNotPress();
+            else
+                finalanswer = redirectoConfirmationDialog(userEnteredKeys);
         }
 
         XmlDocument doc = new XmlDocument();
@@ -62,27 +76,7 @@ public class JHandler : IHttpHandler
         return doc;
     }
 
-    private long addNewUsertoDB(HttpContext mycontext)
-    {
-        long rollno = -1;
-        using (var context = new learnthinksavedbEntities29Jan2016())
-        {
-            StudentTAB mystudent = new StudentTAB();
-            if ((string)mycontext.Request.QueryString["cid"] != null)
-            {
-                long callerphoneno = long.Parse((string)mycontext.Request.QueryString["cid"]);
-                mystudent.AssociatedPhoneNo = UtilitiesClasses.getPhonenumbersinConsistentFormat(callerphoneno);
-            }
-            if ( (string)mycontext.Request.QueryString["cid_e164"] !=null )
-                mystudent.AssociatedPhoneNoE164 = (string)mycontext.Request.QueryString["cid_e164"];
 
-            StudentTAB savedrow = context.StudentTAB.Add(mystudent);
-            context.SaveChanges();
-            rollno = savedrow.StudentRollNo;
-        }
-
-        return rollno;
-    }
 
     private string tryagin()
     {
@@ -93,19 +87,62 @@ public class JHandler : IHttpHandler
         return answerxml;
     }
 
-    private string congratsonRegistering(long rollno)
+    private string confirmuserinputonClsStd()
     {
         string answerxml = $@"
 <Response sid='{sessionid}' > 
-    <playtext>Congratulations, You are registered as a student at Mitra Jyothi Coaching Program </playtext> 
-    <playtext>You can call this phone number anytime to talk to your coach.</playtext> 
-    <playtext>Your roll number is </playtext><playtext>{rollno} </playtext>     
-    <playtext>Please note down your roll numbers</playtext> 
-    <playtext>Again, Your roll number is </playtext> <say-as  format='501' lang='EN'>{rollno}</say-as>
-    <gotourl>{StudentStatus.baseURL}adddnewusersteps.ashx?step=GETLANG</gotourl>
+    <playtext>Just want to confirm your input now. Is this correct? </playtext> 
+    <playtext>Are you in standard  </playtext><playtext>{StudentClassStd} </playtext>     
+    <playtext>Again, </playtext> <say-as  format='501' lang='EN'>{StudentClassStd}</say-as>
+    <collectdtmf l='1' >     
+        <playtext>Press 1 to confirm. Press 0 for enter your standard again.</playtext>   
+    </collectdtmf>
 </Response>";
         return answerxml;
     }
+
+    private string retryoncemoreDidNotPress()
+    {
+        string answerxml = $@"
+<Response sid='{sessionid}' > 
+    <playtext>I did NOT receive any key presses yet </playtext> 
+    <playtext>Are you in standard  </playtext><playtext>{StudentClassStd} </playtext>     
+    <playtext>Again, </playtext> <say-as  format='501' lang='EN'>{StudentClassStd}</say-as>
+    <collectdtmf l='1' >     
+        <playtext>Press 1 to confirm. Press 0 for no.</playtext>   
+    </collectdtmf>
+</Response>";
+        return answerxml;
+    }
+
+
+    private string redirectoConfirmationDialog(string userpressed)
+    {
+        string answerxml = "";
+        int userinput = int.Parse(userpressed);
+        if (userinput == 1)
+        {
+            answerxml = $@"
+<Response sid='{sessionid}' > 
+    <playtext>Your roll no is </playtext> <say-as  format='501' lang='EN'>{rollno}</say-as>
+    <playtext>You are registered to be coached on standard </playtext> <say-as  format='501' lang='EN'>{StudentClassStd}</say-as>
+    <playtext>One moment. Please wait as we are now registering you in database </playtext> 
+    <gotourl>{StudentStatus.baseURL}SavingStandardInfo.ashx?rollno={rollno}&amp;lang={lang}&amp;std={StudentClassStd}</gotourl>    
+</Response>";
+            return answerxml;
+        }
+        else
+        {
+            answerxml = $@"
+<Response sid='{sessionid}' > 
+    <playtext>Sorry. Our system understood incorrectly. If you face this issue frequently, try dialing again without putting on speaker phone . To enroll yourself for the coaching for right standard, kindly call the same number again </playtext> 
+    <playtext>Buy for now </playtext> 
+    <hangup> </hangup>
+</Response>";
+            return answerxml;
+        }
+    }
+
 
 
     public bool IsReusable

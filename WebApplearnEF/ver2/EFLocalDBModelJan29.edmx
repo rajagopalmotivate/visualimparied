@@ -35,21 +35,31 @@ warning 6002: The table/view 'learnthinksavedb.dbo.ListofQuestionPapersTAB' does
           <Property Name="Lang" Type="nvarchar" MaxLength="6" />
           <Property Name="QuestionType" Type="nvarchar" MaxLength="10" />
           <Property Name="E1QuestionUseText" Type="bit" />
-          <Property Name="E1QuestionText" Type="nvarchar" MaxLength="500" />
-          <Property Name="E1QuestionAudio" Type="nvarchar" MaxLength="300" />
+          <Property Name="E1QuestionText" Type="nvarchar" MaxLength="2000" />
+          <Property Name="E1QuestionAudio" Type="nvarchar" MaxLength="500" />
           <Property Name="HowManyChoicesforAnswer" Type="int" />
           <Property Name="E2Option1UseText" Type="bit" />
           <Property Name="E2Option1Text" Type="nvarchar" MaxLength="300" />
-          <Property Name="E2Option1Audio" Type="nvarchar" MaxLength="300" />
+          <Property Name="E2Option1Audio" Type="nvarchar" MaxLength="500" />
           <Property Name="E2Option1SpeechEngPhrasesXML" Type="nvarchar" MaxLength="1000" />
           <Property Name="E3Option2UseText" Type="bit" />
           <Property Name="E3Option2Text" Type="nvarchar" MaxLength="300" />
-          <Property Name="E3Option2Audio" Type="nvarchar" MaxLength="300" />
+          <Property Name="E3Option2Audio" Type="nvarchar" MaxLength="500" />
           <Property Name="E3Option2SpeechEngPhrasesXML" Type="nvarchar" MaxLength="1000" />
           <Property Name="E4Option3UseText" Type="bit" />
           <Property Name="E4Option3Text" Type="nvarchar" MaxLength="300" />
-          <Property Name="E4Option3Audio" Type="nvarchar" MaxLength="300" />
+          <Property Name="E4Option3Audio" Type="nvarchar" MaxLength="500" />
           <Property Name="E4Option3SpeechEngPhrasesXML" Type="nvarchar" MaxLength="1000" />
+          <Property Name="CorrectAnswers" Type="nvarchar" MaxLength="20" />
+          <Property Name="E5HintUseText" Type="bit" />
+          <Property Name="E5HintText" Type="nvarchar" MaxLength="2000" />
+          <Property Name="E5HintAudio" Type="nvarchar" MaxLength="500" />
+          <Property Name="ClassStd" Type="int" />
+          <Property Name="Board" Type="nvarchar" MaxLength="10" />
+          <Property Name="Subject" Type="nvarchar" MaxLength="10" />
+          <Property Name="E6ResponsetoCorrectAnswerUseText" Type="bit" />
+          <Property Name="E6ResponsetoCorrectAnswerText" Type="nvarchar" MaxLength="2000" />
+          <Property Name="E6ResponsetoCorrectAnswerAudio" Type="nvarchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="PhoneCoachingPlanListofSessionsTAB">
           <Key>
@@ -64,25 +74,18 @@ warning 6002: The table/view 'learnthinksavedb.dbo.ListofQuestionPapersTAB' does
           <Property Name="Subject" Type="nvarchar" MaxLength="10" />
           <Property Name="ListofQuestionsXML" Type="nvarchar(max)" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'learnthinksavedb.dbo.QuestionPaperTAB' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="QuestionPaperTAB">
-          <Property Name="QuestionPaperNo" Type="int" />
-          <Property Name="Type" Type="nvarchar" MaxLength="10" />
-          <Property Name="SequenceNo" Type="int" />
-          <Property Name="LinktoQuestionorLecture" Type="int" />
-        </EntityType>-->
         <EntityType Name="StudentSubscriptionProgressionTAB">
           <Key>
-            <PropertyRef Name="StudentRollNo" />
+            <PropertyRef Name="dummykey" />
           </Key>
-          <Property Name="StudentRollNo" Type="bigint" Nullable="false" />
+          <Property Name="StudentRollNo" Type="bigint" />
           <Property Name="ClassStd" Type="int" />
           <Property Name="Lang" Type="nvarchar" MaxLength="6" />
           <Property Name="Board" Type="nvarchar" MaxLength="10" />
           <Property Name="Subject" Type="nvarchar" MaxLength="10" />
           <Property Name="CurrentPhCoachSessionNo" Type="int" />
           <Property Name="CurrentPhCoachSNoCurrentQuestionNo" Type="bigint" />
+          <Property Name="dummykey" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="StudentTAB">
           <Key>
@@ -112,11 +115,6 @@ warning 6013: The table/view 'learnthinksavedb.dbo.QuestionPaperTAB' does not ha
           <Property Name="test4" Type="nvarchar" MaxLength="50" />
           <Property Name="test5" Type="nvarchar" MaxLength="50" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'learnthinksavedb.dbo.testing' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="testing">
-          <Property Name="test" Type="nchar" MaxLength="10" />
-        </EntityType>-->
         <EntityType Name="UserIdentityTAB">
           <Key>
             <PropertyRef Name="userid" />
@@ -200,21 +198,31 @@ warning 6013: The table/view 'learnthinksavedb.dbo.testing' does not have a prim
           <Property Name="Lang" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
           <Property Name="QuestionType" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="E1QuestionUseText" Type="Boolean" />
-          <Property Name="E1QuestionText" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="E1QuestionAudio" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="E1QuestionText" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="E1QuestionAudio" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="HowManyChoicesforAnswer" Type="Int32" />
           <Property Name="E2Option1UseText" Type="Boolean" />
           <Property Name="E2Option1Text" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
-          <Property Name="E2Option1Audio" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="E2Option1Audio" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="E2Option1SpeechEngPhrasesXML" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Name="E3Option2UseText" Type="Boolean" />
           <Property Name="E3Option2Text" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
-          <Property Name="E3Option2Audio" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="E3Option2Audio" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="E3Option2SpeechEngPhrasesXML" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Name="E4Option3UseText" Type="Boolean" />
           <Property Name="E4Option3Text" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
-          <Property Name="E4Option3Audio" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="E4Option3Audio" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="E4Option3SpeechEngPhrasesXML" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="CorrectAnswers" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="E5HintUseText" Type="Boolean" />
+          <Property Name="E5HintText" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="E5HintAudio" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ClassStd" Type="Int32" />
+          <Property Name="Board" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Subject" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="E6ResponsetoCorrectAnswerUseText" Type="Boolean" />
+          <Property Name="E6ResponsetoCorrectAnswerText" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="E6ResponsetoCorrectAnswerAudio" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="PhoneCoachingPlanListofSessionsTAB">
           <Key>
@@ -261,15 +269,16 @@ warning 6013: The table/view 'learnthinksavedb.dbo.testing' does not have a prim
         </EntityType>
         <EntityType Name="StudentSubscriptionProgressionTAB">
           <Key>
-            <PropertyRef Name="StudentRollNo" />
+            <PropertyRef Name="dummykey" />
           </Key>
-          <Property Name="StudentRollNo" Type="Int64" Nullable="false" />
+          <Property Name="StudentRollNo" Type="Int64" />
           <Property Name="ClassStd" Type="Int32" />
           <Property Name="Lang" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
           <Property Name="Board" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="Subject" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="CurrentPhCoachSessionNo" Type="Int32" />
           <Property Name="CurrentPhCoachSNoCurrentQuestionNo" Type="Int64" />
+          <Property Name="dummykey" Type="Int64" Nullable="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -324,6 +333,16 @@ warning 6013: The table/view 'learnthinksavedb.dbo.testing' does not have a prim
           <EntitySetMapping Name="ListofQuestionsWithDetailsofEachQuestionTAB">
             <EntityTypeMapping TypeName="EFlearnthinksavedbModel29Jan2017.ListofQuestionsWithDetailsofEachQuestionTAB">
               <MappingFragment StoreEntitySet="ListofQuestionsWithDetailsofEachQuestionTAB">
+                <ScalarProperty Name="E6ResponsetoCorrectAnswerAudio" ColumnName="E6ResponsetoCorrectAnswerAudio" />
+                <ScalarProperty Name="E6ResponsetoCorrectAnswerText" ColumnName="E6ResponsetoCorrectAnswerText" />
+                <ScalarProperty Name="E6ResponsetoCorrectAnswerUseText" ColumnName="E6ResponsetoCorrectAnswerUseText" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="Board" ColumnName="Board" />
+                <ScalarProperty Name="ClassStd" ColumnName="ClassStd" />
+                <ScalarProperty Name="E5HintAudio" ColumnName="E5HintAudio" />
+                <ScalarProperty Name="E5HintText" ColumnName="E5HintText" />
+                <ScalarProperty Name="E5HintUseText" ColumnName="E5HintUseText" />
+                <ScalarProperty Name="CorrectAnswers" ColumnName="CorrectAnswers" />
                 <ScalarProperty Name="QuestionNo" ColumnName="QuestionNo" />
                 <ScalarProperty Name="Lang" ColumnName="Lang" />
                 <ScalarProperty Name="QuestionType" ColumnName="QuestionType" />
@@ -384,6 +403,7 @@ warning 6013: The table/view 'learnthinksavedb.dbo.testing' does not have a prim
           <EntitySetMapping Name="StudentSubscriptionProgressionTAB">
             <EntityTypeMapping TypeName="EFlearnthinksavedbModel29Jan2017.StudentSubscriptionProgressionTAB">
               <MappingFragment StoreEntitySet="StudentSubscriptionProgressionTAB">
+                <ScalarProperty Name="dummykey" ColumnName="dummykey" />
                 <ScalarProperty Name="CurrentPhCoachSNoCurrentQuestionNo" ColumnName="CurrentPhCoachSNoCurrentQuestionNo" />
                 <ScalarProperty Name="CurrentPhCoachSessionNo" ColumnName="CurrentPhCoachSessionNo" />
                 <ScalarProperty Name="Subject" ColumnName="Subject" />

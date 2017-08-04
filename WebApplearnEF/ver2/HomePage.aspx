@@ -24,10 +24,18 @@
         <br />
         <br />
         <br />
-        <br />
+        If you are volunteer to be a coaching program owner, you can create a coaching session from an question bank.&nbsp;&nbsp;
         <br />
         <asp:HyperLink ID="link1" NavigateUrl="ViewCoachingSessionByClass.aspx" runat="server">See list of Phone based Coaching Sessions </asp:HyperLink>
         <br />
+        <br />
+        If you volunteer to be a teach a subject for a class, you can contribute a new question by recording your a audio.
+        <br />
+        <br />
+        <br />
+        If you volunteer to adopt students in your school or town or association, you can circulate this phone number to your students. To have this number as a toll free service for your student, fill in this &quot;Find a donor&quot; form, and we will publish your request to potential corporate doners. <br />
+        <br />
+        If you are exploring to adopt 1 or 2 kids and educate them for 1 year, you can look at the list of students who need support. When you adopt a student, you can also track his/her progress, and even talk to them to motivate them.
         <br />
         <br />
         <br />

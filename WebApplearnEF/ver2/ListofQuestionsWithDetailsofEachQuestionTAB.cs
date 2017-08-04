@@ -33,5 +33,15 @@ namespace WebApplearnEF.ver2
         public string E4Option3Text { get; set; }
         public string E4Option3Audio { get; set; }
         public string E4Option3SpeechEngPhrasesXML { get; set; }
+        public string CorrectAnswers { get; set; }
+        public Nullable<bool> E5HintUseText { get; set; }
+        public string E5HintText { get; set; }
+        public string E5HintAudio { get; set; }
+        public Nullable<int> ClassStd { get; set; }
+        public string Board { get; set; }
+        public string Subject { get; set; }
+        public Nullable<bool> E6ResponsetoCorrectAnswerUseText { get; set; }
+        public string E6ResponsetoCorrectAnswerText { get; set; }
+        public string E6ResponsetoCorrectAnswerAudio { get; set; }
     }
 }

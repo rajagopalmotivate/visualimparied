@@ -45,6 +45,7 @@ public class JHandler : IHttpHandler
     long rollno;
     string lang; 
 
+
     private XmlDocument GetXmlToShow(HttpContext context)
     {
         string callerphoneno =  (string) context.Request.QueryString["cid_e164"];
@@ -148,9 +149,8 @@ public class JHandler : IHttpHandler
     {
         string answerxml = $@"
 <Response sid='{sessionid}' > 
-    <playtext>Thank you</playtext>  
-    <gotourl>{StudentStatus.baseURL}confirmanswerclass
-?UserEnteredData={dtfmdata}</gotourl>
+    <playtext>Thank you. You pressed {dtfmdata}</playtext>  
+    <gotourl>{StudentStatus.baseURL}confirmanswerclass.ashx?rollno={rollno}&amp;lang={lang}&amp;std={dtfmdata}</gotourl>
 </Response>";
         return answerxml;
     }

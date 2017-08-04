@@ -109,6 +109,36 @@ public class JHandler : IHttpHandler
     }
 
 
+     public string askthequestion(string QuestionNostring, string urlbased)
+    {
+        long QuestionNo = long.Parse(QuestionNostring);
+        ListofQuestionsWithDetailsofEachQuestionTAB myquestion = StudentStatus.getQuestionDetails(QuestionNo);
+        string question = myquestion.E1QuestionText;
+        string option1 = myquestion.E2Option1Text;
+        string option2 = myquestion.E3Option2Text;
+        string option3 = myquestion.E4Option3Text;
+
+        string xmlresponse = "";
+
+        xmlresponse = $@"
+        <Response sid='{sessionid}' > 
+            <playtext>Here comes your Question. </playtext>
+            <playtext>{question}</playtext>
+          <collectdtmf l='1' o='15000'>     
+             <playtext>Press 1 for </playtext>             
+             <playtext>{option1} </playtext>                   
+             <playtext>Press 2 for </playtext>             
+             <playtext>{option2} </playtext>   
+             <playtext>Press 3 for </playtext>             
+             <playtext>{option3} </playtext> 
+            <playtext>Please answer now by pressing 1 or 2 or 3  </playtext>          
+          </collectdtmf>
+        </Response>";
+
+        return xmlresponse;
+    }
+
+
     public string checktheanswer(string QuestionNostring, string studentsAnswerChoice )
     {
         long QuestionNo = long.Parse(QuestionNostring);
