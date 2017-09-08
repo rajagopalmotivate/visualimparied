@@ -64,13 +64,13 @@ public class JHandler : IHttpHandler
 
         if (string.IsNullOrEmpty(kookooevent))
         {
-            finalanswer = askthequestion(QuestionId);
+            finalanswer = askthequestionVoiceorText(QuestionId);
         }
         else if (kookooevent.Equals("GotDTMF"))
         {
             string studentsAnswerChoice = (string)context.Request.QueryString["data"];
             if (string.IsNullOrEmpty(studentsAnswerChoice))
-                finalanswer = askthequestion(QuestionId);
+                finalanswer = askthequestionVoiceorText(QuestionId);
             else
                 finalanswer = checktheanswer(QuestionId, studentsAnswerChoice);
         }
@@ -78,6 +78,54 @@ public class JHandler : IHttpHandler
         doc.LoadXml(finalanswer);
         return doc;
     }
+
+
+    public string askthequestionVoiceorText(string QuestionNostring)
+    {
+        long QuestionNo = long.Parse(QuestionNostring);
+        ListofQuestionsWithDetailsofEachQuestionTAB myquestion = StudentStatus.getQuestionDetails(QuestionNo);
+        bool isUseText = true;
+
+        if (myquestion.E1QuestionUseText != null)
+            if (myquestion.E1QuestionUseText == false) isUseText = false;
+
+        if (isUseText)
+            return askthequestion(QuestionNostring);
+        else
+            return askthequestionVoice(QuestionNostring);
+
+    }
+
+
+    public string askthequestionVoice(string QuestionNostring)
+    {
+        long QuestionNo = long.Parse(QuestionNostring);
+        ListofQuestionsWithDetailsofEachQuestionTAB myquestion = StudentStatus.getQuestionDetails(QuestionNo);
+        string questionmp3URL = myquestion.E1QuestionAudio;
+        string option1mp3URL = myquestion.E2Option1Audio;
+        string option2mp3URL = myquestion.E3Option2Audio;
+        string option3mp3URL = myquestion.E4Option3Audio;
+        string xmlresponse = "";
+
+        xmlresponse = $@"
+        <Response sid='{sessionid}' > 
+            <playtext>Here comes your Question. </playtext>
+            <playaudio>{questionmp3URL}</playaudio>
+          <collectdtmf l='1' o='15000'>     
+             <playtext>Press 1 for </playtext>             
+            <playaudio>{option1mp3URL}</playaudio>
+             <playtext>Press 2 for </playtext>             
+            <playaudio>{option2mp3URL}</playaudio>
+             <playtext>Press 3 for </playtext>             
+            <playaudio>{option3mp3URL}</playaudio>
+            <playtext>Please answer now by pressing 1 or 2 or 3  </playtext>          
+          </collectdtmf>
+        </Response>";
+
+        return xmlresponse;
+
+    }
+
 
     public string askthequestion(string QuestionNostring)
     {
@@ -109,7 +157,7 @@ public class JHandler : IHttpHandler
     }
 
 
-     public string askthequestion(string QuestionNostring, string urlbased)
+    public string askthequestion(string QuestionNostring, string urlbased)
     {
         long QuestionNo = long.Parse(QuestionNostring);
         ListofQuestionsWithDetailsofEachQuestionTAB myquestion = StudentStatus.getQuestionDetails(QuestionNo);
@@ -151,14 +199,31 @@ public class JHandler : IHttpHandler
         if (studentsAnswerChoice == "1") reply = "correct answer. Very good.";
         else  reply = "I am sorry. The correct answer is option 1";
 
+
         string xmlresponse = "";
 
+
+        if( myquestion.E1QuestionUseText == false)
+        {
+            string quizzsummary = myquestion.E6ResponsetoCorrectAnswerAudio; 
+
+        xmlresponse = $@"
+        <Response sid='{sessionid}' > 
+            <playtext>Checking your answer </playtext>
+            <playtext>{reply}</playtext>
+            <playaudio>{quizzsummary}</playaudio>
+            <gotourl>{StudentStatus.baseURL}completedaQuestion.ashx?rollno={rollno}&amp;lang={lang}&amp;std={StudentClassStd}&amp;subject={subject}&amp;CoachingSession={CoachingSession}&amp;QuestionId={QuestionNostring}</gotourl>    
+        </Response>";
+        }
+        else
+        {
         xmlresponse = $@"
         <Response sid='{sessionid}' > 
             <playtext>Checking your answer </playtext>
             <playtext>{reply}</playtext>
             <gotourl>{StudentStatus.baseURL}completedaQuestion.ashx?rollno={rollno}&amp;lang={lang}&amp;std={StudentClassStd}&amp;subject={subject}&amp;CoachingSession={CoachingSession}&amp;QuestionId={QuestionNostring}</gotourl>    
         </Response>";
+        }
 
         return xmlresponse;
     }

@@ -308,6 +308,8 @@
     <Content Include="ver2\kookoo\confirmanswerclass.ashx" />
     <None Include="Properties\PublishProfiles\WebApplearnEF20170718064606 - Web Deploy.pubxml" />
     <Content Include="ver2\kookoo\SavingStandardInfo.ashx" />
+    <None Include="Properties\PublishProfiles\WebApplearnEF20170818084242 - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\WebApplearnEF20170901070721 - Web Deploy.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

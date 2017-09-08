@@ -8,7 +8,7 @@ namespace WebApplearnEF.ver2.kookoo
 {
     public class StudentStatus
     {
-        public static string  baseURL = @"http://webapplearnef20170718064606.azurewebsites.net/ver2/kookoo/";
+        public static string  baseURL = @"http://webapplearnef20170901070721.azurewebsites.net/ver2/kookoo/";
 
         public static StudentTAB getStudentbyAssociatedPhoneNo( long callerPhoneNo )
         {
@@ -17,7 +17,7 @@ namespace WebApplearnEF.ver2.kookoo
             using (var context = new learnthinksavedbEntities29Jan2016())
             {
                 var querytogetastudentrecord = from astudent in context.StudentTAB
-                            where astudent.AssociatedPhoneNo   == callerPhoneNo
+                            where astudent.AssociatedPhoneNo == callerPhoneNo
                             select astudent;
 
                 mystudent =  querytogetastudentrecord.FirstOrDefault();

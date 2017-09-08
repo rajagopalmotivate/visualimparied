@@ -26,11 +26,27 @@
                 <td>&nbsp;</td>
             </tr>
             <tr>
+                <td>&nbsp;</td>
+                <td>
+                    &nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
                 <td>Language (Medium of Instruction)</td>
                 <td>
                     <asp:DropDownList ID="DropDownListLang" runat="server">
                         <asp:ListItem Value="en-IN">English (India) (en-IN)</asp:ListItem>
                         <asp:ListItem Value="hi-IN">हिन्दी (भारत) (hi-IN)</asp:ListItem>
+                    </asp:DropDownList>
+                </td>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td>Board</td>
+                <td>
+                    <asp:DropDownList ID="DropDownListBoard" runat="server">
+                        <asp:ListItem Value="CBSE">CBSE</asp:ListItem>
+                        <asp:ListItem Value="TN">TN</asp:ListItem>
                     </asp:DropDownList>
                 </td>
                 <td>&nbsp;</td>
@@ -61,8 +77,8 @@
                         <asp:ListItem Value="10">Std 10</asp:ListItem>
                         <asp:ListItem Value="11">Std 11</asp:ListItem>
                         <asp:ListItem Value="12">Std 12</asp:ListItem>
-                        <asp:ListItem>Bank Exam 1</asp:ListItem>
-                        <asp:ListItem>Bank Exam 2</asp:ListItem>
+                        <asp:ListItem Value="10001">Bank Exam 1</asp:ListItem>
+                        <asp:ListItem Value="10002">Bank Exam 2</asp:ListItem>
                     </asp:DropDownList>
                 </td>
                 <td>&nbsp;</td>
@@ -79,9 +95,9 @@
             <tr>
                 <td>How many choices </td>
                 <td>
-                    <asp:DropDownList ID="DropDownListHowmanychoices" runat="server">
+                    <asp:DropDownList ID="DropDownListHowmanychoices" runat="server" OnSelectedIndexChanged="DropDownListHowmanychoices_SelectedIndexChanged">
                         <asp:ListItem Value="2">MCQ with 2 choices (true or false style)</asp:ListItem>
-                        <asp:ListItem Value="3">MCQ with 3 choices</asp:ListItem>
+                        <asp:ListItem Value="3" Selected="True">MCQ with 3 choices</asp:ListItem>
                     </asp:DropDownList>
                 </td>
                 <td>&nbsp;</td>
@@ -148,7 +164,7 @@
                 </td>
             </tr>
             <tr>
-                <td>Answer Choice 2</td>
+                <td>Answer Choice 3</td>
                 <td>
                     <asp:HyperLink ID="HyperLinkOption3" runat="server">Please upload audio</asp:HyperLink>
                 </td>
@@ -191,7 +207,7 @@
             <tr>
                 <td>&nbsp;</td>
                 <td>
-                    <asp:Button ID="ButtonStep1InsertRow" runat="server" OnClick="ButtonStep1InsertRow_Click" Text="I confirm i have validated above inputs" />
+                    <asp:Button ID="ButtonStep1InsertRow" runat="server" OnClick="ButtonStep1InsertRow_Click" Text="I confirm i have validated above inputs" Visible="False" />
                 </td>
                 <td>&nbsp;</td>
             </tr>
@@ -205,6 +221,13 @@
                 <td>&nbsp;</td>
                 <td>
                     <asp:Button ID="ButtonSubmit" runat="server" OnClick="ButtonSubmit_Click" Text="Submit Question to Database" Width="537px" />
+                &nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td>
+                    <asp:HyperLink ID="HyperLinkSuccessClicktoContinue" runat="server">[HyperLinkSuccessClicktoContinue]</asp:HyperLink>
                 </td>
                 <td>&nbsp;</td>
             </tr>
