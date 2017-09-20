@@ -191,23 +191,32 @@ public class JHandler : IHttpHandler
     {
         long QuestionNo = long.Parse(QuestionNostring);
         ListofQuestionsWithDetailsofEachQuestionTAB myquestion = StudentStatus.getQuestionDetails(QuestionNo);
-        int rightanswer = 1;
-        if (myquestion.HowManyChoicesforAnswer!=null)
-            rightanswer = (int) myquestion.HowManyChoicesforAnswer;
+        string rightanswers = myquestion.CorrectAnswers;
+        char[] seperators = { ',' };
+        string[] listofrightanswers = rightanswers.Split(seperators);
+        System.Collections.ArrayList listofrightanswersint = new System.Collections.ArrayList(2);
+        foreach (string answer in listofrightanswers) listofrightanswersint.Add( int.Parse(answer));
+        int studentsAnswerChoiceint = int.Parse(studentsAnswerChoice);
+
 
         string reply = "";
-        if (studentsAnswerChoice == "1") reply = "correct answer. Very good.";
-        else  reply = "I am sorry. The correct answer is option 1";
 
+
+        if ( listofrightanswersint.Contains(studentsAnswerChoiceint)  ) reply = "correct answer. Very good.";
+        else  reply = "I am sorry.";
+
+        string replycorrectchoices = "";
+        foreach (int correctanswer in listofrightanswersint) replycorrectchoices = replycorrectchoices + " option " + correctanswer+ " ";
+        reply = reply + " The correct answer is " + replycorrectchoices;
 
         string xmlresponse = "";
 
 
         if( myquestion.E1QuestionUseText == false)
         {
-            string quizzsummary = myquestion.E6ResponsetoCorrectAnswerAudio; 
+            string quizzsummary = myquestion.E6ResponsetoCorrectAnswerAudio;
 
-        xmlresponse = $@"
+            xmlresponse = $@"
         <Response sid='{sessionid}' > 
             <playtext>Checking your answer </playtext>
             <playtext>{reply}</playtext>
@@ -217,7 +226,7 @@ public class JHandler : IHttpHandler
         }
         else
         {
-        xmlresponse = $@"
+            xmlresponse = $@"
         <Response sid='{sessionid}' > 
             <playtext>Checking your answer </playtext>
             <playtext>{reply}</playtext>

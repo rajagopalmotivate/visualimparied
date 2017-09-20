@@ -16,6 +16,9 @@ namespace WebApplearnEF.ver2.kookoo
             return ans; 
         }
 
+
+        public enum LANGUAGECODE { ENGLISH, HINDI };
+
         public static long getPhonenumbersinConsistentFormat(long callerPhoneNo)
         {
             long ans = callerPhoneNo;
@@ -30,6 +33,21 @@ namespace WebApplearnEF.ver2.kookoo
             }
 
             return ans;
+        }
+
+
+        public static string GetLocalAudioONEString(string xmlstring, LANGUAGECODE langcode )
+        {
+            string ans = "";
+            if (xmlstring.Contains(@"<playtext>"))
+            {
+                
+            }
+            else
+                ans = xmlstring;
+
+            return ans;
+
         }
 
     }

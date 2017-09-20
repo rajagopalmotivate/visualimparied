@@ -226,6 +226,7 @@
     <Content Include="ver2\ViewListofQuestionsTAB.aspx" />
     <Content Include="ver2\ViewPhCoachingTable.aspx" />
     <Content Include="ver2\WhatisInaPhoneCoachingSession.aspx" />
+    <Content Include="ver2\XMLTry.aspx" />
     <Content Include="WebForm1.aspx" />
     <Content Include="webformsver1\login.aspx" />
     <None Include="Properties\PublishProfiles\Apr23.pubxml">
@@ -310,6 +311,8 @@
     <Content Include="ver2\kookoo\SavingStandardInfo.ashx" />
     <None Include="Properties\PublishProfiles\WebApplearnEF20170818084242 - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\WebApplearnEF20170901070721 - Web Deploy.pubxml" />
+    <Content Include="ver2\kookoo\KooWelcome - Copy.ashx" />
+    <Content Include="ver2\kookoo\LanguageWelcome.ashx" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -518,6 +521,13 @@
     </Compile>
     <Compile Include="ver2\WhatisInaPhoneCoachingSession.aspx.designer.cs">
       <DependentUpon>WhatisInaPhoneCoachingSession.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ver2\XMLTry.aspx.cs">
+      <DependentUpon>XMLTry.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ver2\XMLTry.aspx.designer.cs">
+      <DependentUpon>XMLTry.aspx</DependentUpon>
     </Compile>
     <Compile Include="webformsver1\login.aspx.cs">
       <DependentUpon>login.aspx</DependentUpon>
