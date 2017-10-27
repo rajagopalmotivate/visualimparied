@@ -20,6 +20,8 @@ public class JHandler : IHttpHandler
     public void ProcessRequest (HttpContext context)
     {
         XmlDocument doc = GetXmlToShow(context);
+        ProcessXMLPlayAudio.autoInsertNodesinDB(doc);
+        doc = ProcessXMLPlayAudio.ReplaceNodesPlayTexttoPlayAudio (doc, lang);
 
         context.Response.ContentType = "text/xml";
 
@@ -55,7 +57,7 @@ public class JHandler : IHttpHandler
         StudentClassStd  = (string) context.Request.QueryString["std"];
         string finalanswer = "";
 
-        bool isupdatesuccessful = updateUsertoDBwithStdClass(rollno, StudentClassStd, "CBSE", "EN-IN");
+        bool isupdatesuccessful = updateUsertoDBwithStdClass(rollno, StudentClassStd, "CBSE", lang);
 
         if (isupdatesuccessful)
             finalanswer = ConfirmationDialog();
@@ -75,7 +77,7 @@ public class JHandler : IHttpHandler
         string answerxml = "";
         answerxml = $@"
 <Response sid='{sessionid}' > 
-            <playtext>Congratuations. You are now registered to be coached on standard {StudentClassStd} </playtext> 
+            <playtext>Congratuations. You are now registered to be coached on standard</playtext><say-as  format='501' lang='EN'>{StudentClassStd}</say-as> 
             <playtext>Shall we start coaching you right now   </playtext>
             <gotourl>{StudentStatus.baseURL}JustCalledStartQuizzing.ashx?rollno={rollno}&amp;lang={lang}</gotourl>    
 </Response>";

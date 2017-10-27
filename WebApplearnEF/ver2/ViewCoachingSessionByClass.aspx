@@ -62,8 +62,8 @@
                 <td>Lang (medium of instruction) </td>
                 <td>
                     <asp:DropDownList ID="DropDownListLang" runat="server">
-                        <asp:ListItem Value="EN-IN">English (India) (EN-IN)</asp:ListItem>
-                        <asp:ListItem Value="HI-IN">हिन्दी (भारत) (HI-IN)</asp:ListItem>
+                        <asp:ListItem Value="EN-IN">English (India) (en-IN)</asp:ListItem>
+                        <asp:ListItem Value="HI-IN">हिन्दी (भारत) (en-HI)</asp:ListItem>
                     </asp:DropDownList>
                 </td>
                 <td>&nbsp;</td>

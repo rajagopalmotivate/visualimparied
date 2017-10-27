@@ -21,6 +21,9 @@ public class JHandler : IHttpHandler
     {
         XmlDocument doc = GetXmlToShow(context);
 
+        ProcessXMLPlayAudio.autoInsertNodesinDB(doc);
+        doc = ProcessXMLPlayAudio.ReplaceNodesPlayTexttoPlayAudio (doc, lang);
+
         context.Response.ContentType = "text/xml";
 
 
@@ -79,6 +82,11 @@ public class JHandler : IHttpHandler
             if ( (string)mycontext.Request.QueryString["cid_e164"] !=null )
                 mystudent.AssociatedPhoneNoE164 = (string)mycontext.Request.QueryString["cid_e164"];
 
+
+            if ((string)mycontext.Request.QueryString["lang"] != null)
+                mystudent.Lang = (string)mycontext.Request.QueryString["lang"]; 
+
+
             StudentTAB savedrow = context.StudentTAB.Add(mystudent);
             context.SaveChanges();
             rollno = savedrow.StudentRollNo;
@@ -100,9 +108,9 @@ public class JHandler : IHttpHandler
     {
         string answerxml = $@"
 <Response sid='{sessionid}' > 
-    <playtext>Congratulations, You are registered as a student at Enability Coaching Program </playtext> 
+    <playtext>Congratulations, You are registered as a student at Mitra Jyothi Coaching Program </playtext> 
     <playtext>You can call this phone number anytime to talk to your coach.</playtext> 
-    <playtext>Your roll number is </playtext><playtext>{rollno} </playtext>     
+    <playtext>Your roll number is </playtext>  <say-as  format='501' lang='EN'>{rollno}</say-as>  
     <playtext>Please note down your roll numbers</playtext> 
     <playtext>Again, Your roll number is </playtext> <say-as  format='501' lang='EN'>{rollno}</say-as>
     <gotourl>{StudentStatus.baseURL}adddnewusersteps.ashx?step=GETLANG&amp;rollno={rollno}&amp;lang={lang}</gotourl>

@@ -22,6 +22,8 @@ public class JHandler : IHttpHandler
     public void ProcessRequest (HttpContext context)
     {
         XmlDocument doc = GetXmlToShow(context);
+        ProcessXMLPlayAudio.autoInsertNodesinDB(doc);
+        doc = ProcessXMLPlayAudio.ReplaceNodesPlayTexttoPlayAudio (doc, lang);
 
         context.Response.ContentType = "text/xml";
 
@@ -149,7 +151,7 @@ public class JHandler : IHttpHandler
     {
         string answerxml = $@"
 <Response sid='{sessionid}' > 
-    <playtext>Thank you. You pressed {dtfmdata}</playtext>  
+    <playtext>Thank you. You pressed</playtext>  <say-as  format='501' lang='EN'>{dtfmdata}</say-as>
     <gotourl>{StudentStatus.baseURL}confirmanswerclass.ashx?rollno={rollno}&amp;lang={lang}&amp;std={dtfmdata}</gotourl>
 </Response>";
         return answerxml;
@@ -160,7 +162,7 @@ public class JHandler : IHttpHandler
     {
         string xmlresponse = $@"
         <Response sid='{sessionid}' > 
-            <playtext> You entered  {dtfmdata} </playtext>
+            <playtext> You entered </playtext><say-as  format='501' lang='EN'>{dtfmdata}</say-as>
             <gotourl>{StudentStatus.baseURL}confirmanswerclass.ashx?rollno={rollno}&amp;lang={lang}&amp;std={dtfmdata}</gotourl>    
         </Response>";
         return xmlresponse;

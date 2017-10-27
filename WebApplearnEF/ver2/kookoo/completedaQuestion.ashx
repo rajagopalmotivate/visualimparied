@@ -20,6 +20,8 @@ public class JHandler : IHttpHandler
     public void ProcessRequest (HttpContext context)
     {
         XmlDocument doc = GetXmlToShow(context);
+        ProcessXMLPlayAudio.autoInsertNodesinDB(doc);
+        doc = ProcessXMLPlayAudio.ReplaceNodesPlayTexttoPlayAudio (doc, lang);
 
         context.Response.ContentType = "text/xml";
 

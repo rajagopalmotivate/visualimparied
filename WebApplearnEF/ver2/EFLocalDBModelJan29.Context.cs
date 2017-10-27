@@ -33,5 +33,6 @@ namespace WebApplearnEF.ver2
         public virtual DbSet<PhoneCoachingPlanListofSessionsTAB> PhoneCoachingPlanListofSessionsTAB { get; set; }
         public virtual DbSet<StudentTAB> StudentTAB { get; set; }
         public virtual DbSet<StudentSubscriptionProgressionTAB> StudentSubscriptionProgressionTAB { get; set; }
+        public virtual DbSet<playtextplayaudio> playtextplayaudio { get; set; }
     }
 }

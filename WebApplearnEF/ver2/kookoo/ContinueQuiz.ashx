@@ -21,6 +21,8 @@ public class JHandler : IHttpHandler
     public void ProcessRequest (HttpContext context)
     {
         XmlDocument doc = GetXmlToShow(context);
+        ProcessXMLPlayAudio.autoInsertNodesinDB(doc);
+        doc = ProcessXMLPlayAudio.ReplaceNodesPlayTexttoPlayAudio (doc, lang);
 
         context.Response.ContentType = "text/xml";
 
@@ -51,7 +53,7 @@ public class JHandler : IHttpHandler
     //   int nextPhoneCoachingSessionNo = -100;
     int StudentClassStd = -1;
     string StudentBoard = "CBSE";
-    string StudentLangMedium = "EN-IN";
+    string StudentLangMedium = "en-IN";
     string lang;
     string subject;
 
@@ -107,7 +109,7 @@ public class JHandler : IHttpHandler
 
         xmlresponse = $@"
         <Response sid='{sessionid}' > 
-            <playtext> Ready? You are now in coaching session number {nextphonecoachingsession} </playtext>
+            <playtext> Ready? You are now in coaching session number </playtext><say-as  format='501' lang='EN'>{nextphonecoachingsession}</say-as>
             <gotourl>{StudentStatus.baseURL}NextQuestion.ashx?rollno={rollno}&amp;lang={lang}&amp;subject={lastcompletedsubject}&amp;std={StudentClassStd}&amp;CoachingSession={nextphonecoachingsession}&amp;QuestionId={nextquestion}</gotourl>    
         </Response>";
 
@@ -190,7 +192,7 @@ public class JHandler : IHttpHandler
     private ArrayList getlistofquestionsinACoachingSession(int phonecoachingsession)
     {
         string XMLListofQuestions = "";
-        PhoneCoachingPlanListofSessionsTAB CoachingSessionObject=   StudentStatus.getListofQuestionsDuringthisDay(phonecoachingsession, 5, "CBSE", "EN-IN", "MATH");
+        PhoneCoachingPlanListofSessionsTAB CoachingSessionObject=   StudentStatus.getListofQuestionsDuringthisDay(phonecoachingsession, 5, "CBSE", "en-IN", "MATH");
         if (CoachingSessionObject != null)
             XMLListofQuestions = CoachingSessionObject.ListofQuestionsXML;
         else

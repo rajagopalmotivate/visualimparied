@@ -74,6 +74,15 @@ warning 6002: The table/view 'learnthinksavedb.dbo.ListofQuestionPapersTAB' does
           <Property Name="Subject" Type="nvarchar" MaxLength="10" />
           <Property Name="ListofQuestionsXML" Type="nvarchar(max)" />
         </EntityType>
+        <EntityType Name="playtextplayaudio">
+          <Key>
+            <PropertyRef Name="dummyindex" />
+          </Key>
+          <Property Name="Lang" Type="nvarchar" MaxLength="6" />
+          <Property Name="playtext" Type="nvarchar" MaxLength="1000" />
+          <Property Name="playaudioURL" Type="nvarchar" MaxLength="4000" />
+          <Property Name="dummyindex" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
         <EntityType Name="StudentSubscriptionProgressionTAB">
           <Key>
             <PropertyRef Name="dummykey" />
@@ -131,6 +140,7 @@ warning 6002: The table/view 'learnthinksavedb.dbo.ListofQuestionPapersTAB' does
           <EntitySet Name="AudioURLTrascribedStringTAB" EntityType="Self.AudioURLTrascribedStringTAB" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ListofQuestionsWithDetailsofEachQuestionTAB" EntityType="Self.ListofQuestionsWithDetailsofEachQuestionTAB" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PhoneCoachingPlanListofSessionsTAB" EntityType="Self.PhoneCoachingPlanListofSessionsTAB" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="playtextplayaudio" EntityType="Self.playtextplayaudio" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StudentSubscriptionProgressionTAB" EntityType="Self.StudentSubscriptionProgressionTAB" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StudentTAB" EntityType="Self.StudentTAB" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Table_Test" EntityType="Self.Table_Test" Schema="dbo" store:Type="Tables" />
@@ -246,6 +256,7 @@ warning 6002: The table/view 'learnthinksavedb.dbo.ListofQuestionPapersTAB' does
           <EntitySet Name="PhoneCoachingPlanListofSessionsTAB" EntityType="Self.PhoneCoachingPlanListofSessionsTAB" />
           <EntitySet Name="StudentTAB" EntityType="EFlearnthinksavedbModel29Jan2017.StudentTAB" />
           <EntitySet Name="StudentSubscriptionProgressionTAB" EntityType="EFlearnthinksavedbModel29Jan2017.StudentSubscriptionProgressionTAB" />
+          <EntitySet Name="playtextplayaudio" EntityType="EFlearnthinksavedbModel29Jan2017.playtextplayaudio" />
         </EntityContainer>
         <EntityType Name="StudentTAB">
           <Key>
@@ -279,6 +290,15 @@ warning 6002: The table/view 'learnthinksavedb.dbo.ListofQuestionPapersTAB' does
           <Property Name="CurrentPhCoachSessionNo" Type="Int32" />
           <Property Name="CurrentPhCoachSNoCurrentQuestionNo" Type="Int64" />
           <Property Name="dummykey" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="playtextplayaudio">
+          <Key>
+            <PropertyRef Name="dummyindex" />
+          </Key>
+          <Property Name="Lang" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
+          <Property Name="playtext" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="playaudioURL" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="dummyindex" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -411,6 +431,16 @@ warning 6002: The table/view 'learnthinksavedb.dbo.ListofQuestionPapersTAB' does
                 <ScalarProperty Name="Lang" ColumnName="Lang" />
                 <ScalarProperty Name="ClassStd" ColumnName="ClassStd" />
                 <ScalarProperty Name="StudentRollNo" ColumnName="StudentRollNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="playtextplayaudio">
+            <EntityTypeMapping TypeName="EFlearnthinksavedbModel29Jan2017.playtextplayaudio">
+              <MappingFragment StoreEntitySet="playtextplayaudio">
+                <ScalarProperty Name="dummyindex" ColumnName="dummyindex" />
+                <ScalarProperty Name="playaudioURL" ColumnName="playaudioURL" />
+                <ScalarProperty Name="playtext" ColumnName="playtext" />
+                <ScalarProperty Name="Lang" ColumnName="Lang" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -170,6 +170,7 @@
     <Content Include="HtmlPage1.html" />
     <Content Include="HtmlPage2.html" />
     <Content Include="HtmlPage3.html" />
+    <Content Include="ListofPlaytextplayaudiotransformation.aspx" />
     <Content Include="packages.config" />
     <Content Include="try1\WebForm1.aspx" />
     <Content Include="UploadFile.aspx" />
@@ -218,6 +219,7 @@
     <Content Include="ver2\GetQuestionbyID.aspx" />
     <Content Include="ver2\HomePage.aspx" />
     <Content Include="ver2\login1.aspx" />
+    <Content Include="ver2\Lplaytextplayaudioequivalent.aspx" />
     <Content Include="ver2\RegisterUser1.aspx" />
     <Content Include="ver2\Ring02.wav" />
     <Content Include="ver2\testing12.aspx" />
@@ -327,6 +329,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Code\User.cs" />
+    <Compile Include="ListofPlaytextplayaudiotransformation.aspx.cs">
+      <DependentUpon>ListofPlaytextplayaudiotransformation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ListofPlaytextplayaudiotransformation.aspx.designer.cs">
+      <DependentUpon>ListofPlaytextplayaudiotransformation.aspx</DependentUpon>
+    </Compile>
     <Compile Include="try1\WebForm1.aspx.cs">
       <DependentUpon>WebForm1.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -453,6 +462,7 @@
       <DependentUpon>HomePage.aspx</DependentUpon>
     </Compile>
     <Compile Include="ver2\kookoo\Motivational.cs" />
+    <Compile Include="ver2\kookoo\ProcessXMLPlayAudio.cs" />
     <Compile Include="ver2\kookoo\QuestionDetails.cs" />
     <Compile Include="ver2\kookoo\StudentStatus.cs" />
     <Compile Include="ver2\kookoo\UtilitiesClasses.cs" />
@@ -462,7 +472,17 @@
     <Compile Include="ver2\ListofQuestionsWithDetailsofEachQuestionTAB.cs">
       <DependentUpon>EFLocalDBModelJan29.tt</DependentUpon>
     </Compile>
+    <Compile Include="ver2\Lplaytextplayaudioequivalent.aspx.cs">
+      <DependentUpon>Lplaytextplayaudioequivalent.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ver2\Lplaytextplayaudioequivalent.aspx.designer.cs">
+      <DependentUpon>Lplaytextplayaudioequivalent.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ver2\PhoneCoachingPlanListofSessionsTAB.cs">
+      <DependentUpon>EFLocalDBModelJan29.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ver2\playtextplayaudio.cs">
       <DependentUpon>EFLocalDBModelJan29.tt</DependentUpon>
     </Compile>
     <Compile Include="ver2\StudentSubscriptionProgressionTAB.cs">

@@ -20,6 +20,8 @@ public class JHandler : IHttpHandler
     public void ProcessRequest (HttpContext context)
     {
         XmlDocument doc = GetXmlToShow(context);
+        ProcessXMLPlayAudio.autoInsertNodesinDB(doc);
+        doc = ProcessXMLPlayAudio.ReplaceNodesPlayTexttoPlayAudio (doc, lang);
 
         context.Response.ContentType = "text/xml";
 
@@ -192,6 +194,7 @@ public class JHandler : IHttpHandler
         long QuestionNo = long.Parse(QuestionNostring);
         ListofQuestionsWithDetailsofEachQuestionTAB myquestion = StudentStatus.getQuestionDetails(QuestionNo);
         string rightanswers = myquestion.CorrectAnswers;
+
         char[] seperators = { ',' };
         string[] listofrightanswers = rightanswers.Split(seperators);
         System.Collections.ArrayList listofrightanswersint = new System.Collections.ArrayList(2);
@@ -205,9 +208,14 @@ public class JHandler : IHttpHandler
         if ( listofrightanswersint.Contains(studentsAnswerChoiceint)  ) reply = "correct answer. Very good.";
         else  reply = "I am sorry.";
 
+        string reply2 = "";
         string replycorrectchoices = "";
-        foreach (int correctanswer in listofrightanswersint) replycorrectchoices = replycorrectchoices + " option " + correctanswer+ " ";
-        reply = reply + " The correct answer is " + replycorrectchoices;
+        foreach (int correctanswer in listofrightanswersint)
+        {
+            replycorrectchoices = replycorrectchoices + ", " + correctanswer + ", ";
+        }
+
+        reply2 =  replycorrectchoices;
 
         string xmlresponse = "";
 
@@ -220,6 +228,7 @@ public class JHandler : IHttpHandler
         <Response sid='{sessionid}' > 
             <playtext>Checking your answer </playtext>
             <playtext>{reply}</playtext>
+            <playtext>The correct answer is </playtext><playtext>{rightanswers}</playtext>
             <playaudio>{quizzsummary}</playaudio>
             <gotourl>{StudentStatus.baseURL}completedaQuestion.ashx?rollno={rollno}&amp;lang={lang}&amp;std={StudentClassStd}&amp;subject={subject}&amp;CoachingSession={CoachingSession}&amp;QuestionId={QuestionNostring}</gotourl>    
         </Response>";

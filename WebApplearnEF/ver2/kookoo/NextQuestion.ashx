@@ -20,6 +20,9 @@ public class JHandler : IHttpHandler
     public void ProcessRequest (HttpContext context)
     {
         XmlDocument doc = GetXmlToShow(context);
+        ProcessXMLPlayAudio.autoInsertNodesinDB(doc);
+        doc = ProcessXMLPlayAudio.ReplaceNodesPlayTexttoPlayAudio (doc, lang);
+
         context.Response.ContentType = "text/xml";
 
         context.Response.ContentEncoding = System.Text.Encoding.UTF8;
@@ -64,7 +67,7 @@ public class JHandler : IHttpHandler
     {
         string answerxml = $@"
         <Response sid='{sessionid}' > 
-            <playtext> Question Unique Number is {QuestionId}  </playtext>
+            <playtext> Question Unique Number is</playtext><say-as  format='501' lang='EN'>{QuestionId}</say-as>
             <gotourl>{StudentStatus.baseURL}AskaQuestion.ashx?rollno={rollno}&amp;lang={lang}&amp;std={StudentClassStd}&amp;subject={subject}&amp;CoachingSession={CoachingSession}&amp;QuestionId={QuestionId}</gotourl>    
         </Response>";
         return answerxml;

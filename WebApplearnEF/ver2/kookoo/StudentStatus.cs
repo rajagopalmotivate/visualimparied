@@ -111,7 +111,7 @@ namespace WebApplearnEF.ver2.kookoo
 
             bool isinputvalid = true;
             if (!((ClassStd > 0) && (ClassStd <= 12))) isinputvalid = false;
-            if (!((Lang.Equals("EN-IN")) || (Lang.Equals("HI-IN")))) isinputvalid = false;
+            if (!((Lang.Equals("en-IN")) || (Lang.Equals("en-TA")) || (Lang.Equals("en-HI")))) isinputvalid = false;
             if (!((Board.Equals("CBSE")) || (Board.Equals("CBSE")))) isinputvalid = false;
             if (!((Subject.Equals("MATH")) || (Subject.Equals("SCIENCE")))) isinputvalid = false;
             if (isinputvalid == false) { throw new FormatException("invalid input"); }

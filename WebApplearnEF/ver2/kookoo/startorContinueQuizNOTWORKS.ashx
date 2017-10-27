@@ -21,6 +21,8 @@ public class JHandler : IHttpHandler
     public void ProcessRequest (HttpContext context)
     {
         XmlDocument doc = GetXmlToShow(context);
+        ProcessXMLPlayAudio.autoInsertNodesinDB(doc);
+        doc = ProcessXMLPlayAudio.ReplaceNodesPlayTexttoPlayAudio (doc, lang);
 
         context.Response.ContentType = "text/xml";
 
@@ -116,7 +118,7 @@ public class JHandler : IHttpHandler
     private ArrayList getlistofquestionsinACoachingSession(int phonecoachingsession)
     {
         string XMLListofQuestions = "";
-        PhoneCoachingPlanListofSessionsTAB CoachingSessionObject=   StudentStatus.getListofQuestionsDuringthisDay(phonecoachingsession, 5, "CBSE", "EN-IN", "MATH");
+        PhoneCoachingPlanListofSessionsTAB CoachingSessionObject=   StudentStatus.getListofQuestionsDuringthisDay(phonecoachingsession, 5, "CBSE", "en-IN", "MATH");
         if (CoachingSessionObject != null)
             XMLListofQuestions = CoachingSessionObject.ListofQuestionsXML;
         else

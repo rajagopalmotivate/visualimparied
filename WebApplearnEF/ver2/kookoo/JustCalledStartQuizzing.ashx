@@ -20,6 +20,9 @@ public class JHandler : IHttpHandler
     public void ProcessRequest (HttpContext context)
     {
         XmlDocument doc = GetXmlToShow(context);
+        ProcessXMLPlayAudio.autoInsertNodesinDB(doc);
+        doc = ProcessXMLPlayAudio.ReplaceNodesPlayTexttoPlayAudio (doc, lang);
+
         context.Response.ContentType = "text/xml";
 
         context.Response.ContentEncoding = System.Text.Encoding.UTF8;
@@ -118,13 +121,17 @@ public class JHandler : IHttpHandler
         if (subject == 2) subjectstring = "MATH";
         if (subject == 1) subjectstring = "SCIENCE";
 
+        string subjectstringdemo="MATH";
+
+
         string langstring = UtilitiesClasses.getLanguageinStringFormat(lang);
 
         string answerxml = $@"
         <Response sid='{sessionid}' > 
-            <playtext>Your selected {subjectstring}</playtext>
+            <playtext>Your selected </playtext> <playtext>{subjectstring}</playtext>
+            <playtext> In the database today, We have only few MATH questions. So let's do math </playtext>            
             <playtext>Shall we start coaching you now   </playtext>
-            <gotourl>{StudentStatus.baseURL}ContinueQuiz.ashx?rollno={rollno}&amp;lang={lang}&amp;subject={subjectstring}</gotourl>    
+            <gotourl>{StudentStatus.baseURL}ContinueQuiz.ashx?rollno={rollno}&amp;lang={lang}&amp;subject={subjectstringdemo}</gotourl>    
         </Response>";
         return answerxml;
     }

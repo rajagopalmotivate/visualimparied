@@ -62,7 +62,7 @@ public class JHandler : IHttpHandler
                     finalanswer = welcomeRegisteredSudentTELProccedQuizzing(mystudent.StudentRollNo, mystudent.Lang);
                 else
                 {
-                    finalanswer = collectClassinfoandSavethem(mystudent.StudentRollNo, "EN-IN");
+                    finalanswer = collectClassinfoandSavethem(mystudent.StudentRollNo, "en-IN");
                 }
             }
         }
@@ -88,7 +88,7 @@ public class JHandler : IHttpHandler
 
         string answerxml = $@"
 <Response sid='{sessionid}' > 
-    <playtext>Welcome to Enability Audio Classes. </playtext>
+    <playtext>Welcome to Mitra Jyothi Audio Classes. </playtext>
     <playtext>You need just a telephone to avail this phone based coaching.</playtext>
     <playtext>Everyone can study.</playtext>
     <playtext>Do you want to register for free coaching? </playtext>
@@ -108,7 +108,7 @@ public class JHandler : IHttpHandler
     {
         string answerxml = $@"
 <Response sid='{sessionid}' > 
-    <playtext>Welcome to Enability Audio Classes. </playtext>
+    <playtext>Welcome to Mitra Jyothi Audio Classes. </playtext>
     <playtext>You need just a telephone to avail this phone based coaching.</playtext>
     <playtext>Everyone can study.</playtext>
     <playtext>Do you want to register for free coaching? </playtext>
@@ -133,7 +133,7 @@ public class JHandler : IHttpHandler
         //TODO: Based on student's lang, play the below in the prefered lang
         string answerxml = $@"
         <Response sid='{sessionid}' > 
-            <playtext>Welcome again to Enability Audio Classes.  Welcome back. Your roll number is {rollno}</playtext>
+            <playtext>Welcome again to Mitra Jyothi Audio Classes.  Welcome back. Your roll number is {rollno}</playtext>
             <playtext>You need to provide additional information before we proceed. </playtext>
             <gotourl>{StudentStatus.baseURL}adddnewusersteps.ashx?step=GETLANG&amp;rollno={rollno}&amp;lang={lang}</gotourl>
         </Response>";
@@ -148,7 +148,7 @@ public class JHandler : IHttpHandler
         //TODO: Based on student's lang, play the below in the prefered lang
         string answerxml = $@"
         <Response sid='{sessionid}' > 
-            <playtext>Welcome again to Enability Audio Classes.  Welcome back. Your roll number is {rollno}</playtext>
+            <playtext>Welcome again to Mitra Jyothi Audio Classes.  Welcome back. Your roll number is {rollno}</playtext>
             <playtext>Shall we start coaching you now   </playtext>
             <gotourl>{StudentStatus.baseURL}JustCalledStartQuizzing.ashx?rollno={rollno}&amp;lang={lang}</gotourl>    
         </Response>";
@@ -163,7 +163,7 @@ public class JHandler : IHttpHandler
         <Response sid='{sessionid}' > 
             <playtext>We are happy for you. Thanks for choosing to {optin} </playtext>
             <playtext>Give us a few seconds to register you into the system database.</playtext>
-             <gotourl>{StudentStatus.baseURL}adddnewuser.ashx?mode={optin}&amp;lang='EN-IN'</gotourl>    
+             <gotourl>{StudentStatus.baseURL}adddnewuser.ashx?mode={optin}&amp;lang='en-IN'</gotourl>    
         </Response>";
         return answerxml;
     }

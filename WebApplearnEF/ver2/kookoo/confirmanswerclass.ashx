@@ -20,6 +20,8 @@ public class JHandler : IHttpHandler
     public void ProcessRequest (HttpContext context)
     {
         XmlDocument doc = GetXmlToShow(context);
+        ProcessXMLPlayAudio.autoInsertNodesinDB(doc);
+        doc = ProcessXMLPlayAudio.ReplaceNodesPlayTexttoPlayAudio (doc, lang);
 
         context.Response.ContentType = "text/xml";
 
@@ -92,8 +94,8 @@ public class JHandler : IHttpHandler
         string answerxml = $@"
 <Response sid='{sessionid}' > 
     <playtext>Just want to confirm your input now. Is this correct? </playtext> 
-    <playtext>Are you in standard  </playtext><playtext>{StudentClassStd} </playtext>     
-    <playtext>Again, </playtext> <say-as  format='501' lang='EN'>{StudentClassStd}</say-as>
+    <playtext>Are you in standard  </playtext>     
+    <say-as  format='501' lang='EN'>{StudentClassStd}</say-as>
     <collectdtmf l='1' >     
         <playtext>Press 1 to confirm. Press 0 for enter your standard again.</playtext>   
     </collectdtmf>

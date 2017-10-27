@@ -21,6 +21,9 @@ public class JHandler : IHttpHandler
     {
         XmlDocument doc = GetXmlToShow(context);
 
+        ProcessXMLPlayAudio.autoInsertNodesinDB(doc);
+        doc = ProcessXMLPlayAudio.ReplaceNodesPlayTexttoPlayAudio (doc, lang);
+
         context.Response.ContentType = "text/xml";
 
 
@@ -40,6 +43,7 @@ public class JHandler : IHttpHandler
 
     StudentTAB mystudent;
     string sessionid;
+    string lang = "en-EN"; 
 
     private XmlDocument GetXmlToShow(HttpContext context)
     {
@@ -48,6 +52,7 @@ public class JHandler : IHttpHandler
         sessionid = (string) context.Request.QueryString["sid"];
         string circle = (string) context.Request.QueryString["circle"];
         string kookooevent = (string) context.Request.QueryString["event"];
+        lang = (string) context.Request.QueryString["lang"];
         string finalanswer = "";
 
         if (kookooevent.Contains("NewCall"))
@@ -62,7 +67,7 @@ public class JHandler : IHttpHandler
                     finalanswer = welcomeRegisteredSudentTELProccedQuizzing(mystudent.StudentRollNo, mystudent.Lang);
                 else
                 {
-                    finalanswer = collectClassinfoandSavethem(mystudent.StudentRollNo, "EN-IN");
+                    finalanswer = collectClassinfoandSavethem(mystudent.StudentRollNo, mystudent.Lang);
                 }
             }
         }
@@ -88,7 +93,7 @@ public class JHandler : IHttpHandler
 
         string answerxml = $@"
 <Response sid='{sessionid}' > 
-    <playtext>Welcome to Enability Audio Classes. </playtext>
+    <playtext>Welcome to Mitra Jyothi Audio Classes. </playtext>
     <playtext>You need just a telephone to avail this phone based coaching.</playtext>
     <playtext>Everyone can study.</playtext>
     <playtext>Do you want to register for free coaching? </playtext>
@@ -108,7 +113,7 @@ public class JHandler : IHttpHandler
     {
         string answerxml = $@"
 <Response sid='{sessionid}' > 
-    <playtext>Welcome to Enability Audio Classes. </playtext>
+    <playtext>Welcome to Mitra Jyothi Audio Classes. </playtext>
     <playtext>You need just a telephone to avail this phone based coaching.</playtext>
     <playtext>Everyone can study.</playtext>
     <playtext>Do you want to register for free coaching? </playtext>
@@ -133,7 +138,7 @@ public class JHandler : IHttpHandler
         //TODO: Based on student's lang, play the below in the prefered lang
         string answerxml = $@"
         <Response sid='{sessionid}' > 
-            <playtext>Welcome again to Enability Audio Classes.  Welcome back. Your roll number is {rollno}</playtext>
+            <playtext>Welcome again to Mitra Jyothi Audio Classes.  Welcome back. Your roll number is</playtext><say-as  format='501' lang='EN'>{rollno}</say-as>
             <playtext>You need to provide additional information before we proceed. </playtext>
             <gotourl>{StudentStatus.baseURL}adddnewusersteps.ashx?step=GETLANG&amp;rollno={rollno}&amp;lang={lang}</gotourl>
         </Response>";
@@ -148,7 +153,7 @@ public class JHandler : IHttpHandler
         //TODO: Based on student's lang, play the below in the prefered lang
         string answerxml = $@"
         <Response sid='{sessionid}' > 
-            <playtext>Welcome again to Enability Audio Classes.  Welcome back. Your roll number is {rollno}</playtext>
+            <playtext>Welcome again to Mitra Jyothi Audio Classes.  Welcome back. Your roll number is</playtext> <say-as  format='501' lang='EN'>{rollno}</say-as>
             <playtext>Shall we start coaching you now   </playtext>
             <gotourl>{StudentStatus.baseURL}JustCalledStartQuizzing.ashx?rollno={rollno}&amp;lang={lang}</gotourl>    
         </Response>";
@@ -159,11 +164,12 @@ public class JHandler : IHttpHandler
 
     private string addNewUsertoDB(string optin)
     {
+        
         string answerxml = $@"
         <Response sid='{sessionid}' > 
             <playtext>We are happy for you. Thanks for choosing to {optin} </playtext>
             <playtext>Give us a few seconds to register you into the system database.</playtext>
-             <gotourl>{StudentStatus.baseURL}adddnewuser.ashx?mode={optin}&amp;lang='EN-IN'</gotourl>    
+             <gotourl>{StudentStatus.baseURL}adddnewuser.ashx?mode={optin}&amp;lang={lang}</gotourl>    
         </Response>";
         return answerxml;
     }

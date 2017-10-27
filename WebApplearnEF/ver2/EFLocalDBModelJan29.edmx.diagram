@@ -13,6 +13,7 @@
         <EntityTypeShape EntityType="EFlearnthinksavedbModel29Jan2017.PhoneCoachingPlanListofSessionsTAB" Width="2.875" PointX="3.25" PointY="0.625" IsExpanded="true" />
         <EntityTypeShape EntityType="EFlearnthinksavedbModel29Jan2017.StudentTAB" Width="2.375" PointX="10.25" PointY="0.5" />
         <EntityTypeShape EntityType="EFlearnthinksavedbModel29Jan2017.StudentSubscriptionProgressionTAB" Width="5.375" PointX="7.75" PointY="4.625" />
+        <EntityTypeShape EntityType="EFlearnthinksavedbModel29Jan2017.playtextplayaudio" Width="1.5" PointX="0.75" PointY="3.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
